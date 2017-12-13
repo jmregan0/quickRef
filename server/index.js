@@ -56,7 +56,7 @@ const startListening = () => {
 // require.main evaluates false when it is required by another module
 if (require.main === module) {
     createApp()
-    .then(startListening)
+    startListening()
 } else {
   createApp()
 }
