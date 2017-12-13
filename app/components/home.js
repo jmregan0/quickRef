@@ -1,17 +1,27 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import fetchResearch from '../reducers/sources'
+import { fetchResearch } from '../reducers/sources.jsx'
 
 class Home extends React.Component {
   constructor(props){
     super(props)
 
     this.state = {
-      userInput: ''
+      userInput: '',
+      sources: props.resources
     }
+
+    this.handleChange = this.handleChange.bind(this);
   }
 
+  handleChange(event) {
+    event.preventDefault();
+    console.log('event.target.value', event.target.value)
+    this.setState({
+      userInput: event.target.value
+    })
+  }
 
   render(){
     return (
@@ -20,8 +30,9 @@ class Home extends React.Component {
         <p>search stuff here</p>
         <input
           placeholder="type something"
-          onChange={(event) => this.setState({userInput: event.target.value}) }
+          onChange={ (event) => this.handleChange(event) }
          />
+
         {/* {
           sources.map((source) => {
             return (
@@ -29,8 +40,8 @@ class Home extends React.Component {
             )
           })
         } */}
-        <button>find me stuff</button>
-        {/* <Link to="/about">About</Link> */}
+        <button onClick={ () => this.props.getTheStuff(this.state.userInput)}>find me stuff</button>
+
       </div>
       )
   }
@@ -42,10 +53,10 @@ const mapState = (state) => {
   }
 }
 
-// const mapDispatch = (dispatch) => {
-//   return {
-//     fetchResearch
-//   }
-// }
+const mapDispatch = (dispatch) => {
+  return {
+    getTheStuff: (topics) => dispatch(fetchResearch(topics))
+  }
+}
 
-export default connect(mapState)(Home)
+export default connect(mapState, mapDispatch)(Home)
