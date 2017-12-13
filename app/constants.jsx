@@ -1,3 +1,0 @@
-export const SAMPLE_CONSTANT = 'SAMPLE_CONSTANT'
-
-// etc...
