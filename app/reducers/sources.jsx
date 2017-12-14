@@ -5,24 +5,30 @@ const RETRIEVE_DATA = 'RETRIEVE_DATA';
 
 // Initial State
 const initialState = {
-  results: []
+  resources: []
 }
 
 
 // Action-Creators:
-
+const setData = (payload) => {
+  return {
+    type: RETRIEVE_DATA,
+    payload
+  }
+}
 
 // dispatch methods/THUNKS:
 export const fetchResearch = (searchParams) =>
 (dispatch) => {
   return axios({
-    method: 'get',
+    method: 'post',
     url: 'http://localhost:3000/api/research',
-    searchParams
+    data: {
+      searchParams: searchParams
+    }
 })
 .then(result => {
-  console.log(result)
-  // dispatch stuff to store here
+  dispatch(setData(result.data))
 })
 .catch(err => console.log(err))
 }
@@ -34,7 +40,7 @@ export default function(state = initialState, action) {
 
   switch (action.type) {
     case RETRIEVE_DATA:
-      newState.results = action.payload
+      newState.resources = action.payload
       break
     default:
       return state

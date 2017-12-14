@@ -1,9 +1,13 @@
 const research = require('express').Router();
+const axios = require('axios');
 
 
-research.get('/', function(req, res, next){
+research.post('/', function(req, res, next){
 
-  const searchParams = req.body.searchParams;
+  let searchParams = req.body.searchParams.split(' ');
+
+  console.log('searchParams', searchParams)
+
   var query = '';
 
   searchParams.forEach((tag, index) => {
@@ -11,7 +15,7 @@ research.get('/', function(req, res, next){
     if (s.length > 1){
       s.forEach((word, index) => {
         query += word
-        if(index < s.length - 1){
+        if (index < s.length - 1){
           query += '%20'
         }
       })
@@ -23,8 +27,18 @@ research.get('/', function(req, res, next){
     }
   })
 
-  // call to crossref API below
-
+  axios({
+    method: 'get',
+    url: `https://api.crossref.org/works?query=${query}`,
+    headers: {
+      'User-Agent': 'quickref01@gmail.com'
+    }
+  })
+  .then(info => {
+    // console.log('info', info.data)
+    res.send(info.data.message.items).status(200)
+  })
+  .catch(err => console.error(err))
 
 })
 
