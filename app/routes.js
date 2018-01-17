@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import { Home, About } from './components';
+import { Home, Search, Footer } from './components';
 
 
 class Routes extends Component {
@@ -11,7 +11,7 @@ class Routes extends Component {
       <BrowserRouter history={ history }>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route path="/about" component={About} />
+            <Route path="/search" component={Search} />
           </Switch>
       </BrowserRouter>
     )

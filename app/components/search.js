@@ -1,110 +1,80 @@
-import _ from 'lodash'
-// import faker from 'faker'
-import React, { Component } from 'react'
-import { Search, Grid, Header } from 'semantic-ui-react'
+import React from 'react'
+import Footer from './footer'
+import { WithContext as ReactTags } from 'react-tag-input';
+import axios from 'axios'
+import List from './list'
 
-// const source = _.times(5, () => ({
-//   title: faker.company.companyName(),
-//   description: faker.company.catchPhrase(),
-//   image: faker.internet.avatar(),
-//   price: faker.finance.amount(0, 100, 2, '$'),
-// }))
+class Search extends React.Component {
+  constructor(props) {
+      super(props);
 
-export default class SearchBar extends Component {
-  componentWillMount() {
-    this.resetComponent()
+      this.state = {
+          tags: [{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+          research: []
+      };
+      this.handleDelete = this.handleDelete.bind(this);
+      this.handleAddition = this.handleAddition.bind(this);
+      this.handleDrag = this.handleDrag.bind(this);
+      this.submitQuery = this.submitQuery.bind(this);
   }
 
-  resetComponent() {this.setState({ isLoading: false, results: [], value: '' })}
+  handleDelete(i) {
+      let tags = this.state.tags;
+      tags.splice(i, 1);
+      this.setState({tags: tags});
+  }
 
-  handleResultSelect(e, { result }) { this.setState({ value: result.title })}
+  handleAddition(tag) {
+      let tags = this.state.tags;
+      tags.push({
+          id: tags.length + 1,
+          text: tag
+      });
+      this.setState({tags: tags});
+  }
 
-  handleSearchChange(e, { value }) {
-    this.setState({ isLoading: true, value })
+  handleDrag(tag, currPos, newPos) {
+      let tags = this.state.tags;
 
-    setTimeout(() => {
-      if (this.state.value.length < 1) return this.resetComponent()
+      // mutate array
+      tags.splice(currPos, 1);
+      tags.splice(newPos, 0, tag);
 
-      const re = new RegExp(_.escapeRegExp(this.state.value), 'i')
-      const isMatch = result => re.test(result.title)
+      // re-render
+      this.setState({ tags: tags });
+  }
 
+  submitQuery() {
+    axios.post('api/research', {
+      tags: this.state.tags
+    })
+    .then(res => {
+      console.log(res)
       this.setState({
-        isLoading: false,
-        // results: _.filter(source, isMatch),
+        research: res.data
       })
-    }, 500)
+    })
   }
 
   render() {
-    const { isLoading, value, results } = this.state
+      const { tags, suggestions, research } = this.state;
+      return (
+          <div>
+              <ReactTags tags={tags}
+                  suggestions={suggestions}
+                  handleDelete={this.handleDelete}
+                  handleAddition={this.handleAddition}
+                  handleDrag={this.handleDrag} />
 
-    return (
-      <Grid>
-        <Grid.Column width={8}>
-          <Search
-            loading={isLoading}
-            onResultSelect={this.handleResultSelect}
-            onSearchChange={this.handleSearchChange}
-            results={results}
-            value={value}
-            {...this.props}
-          />
-        </Grid.Column>
-      </Grid>
-    )
+              <button onClick={this.submitQuery}>Button</button>
+
+              {
+                this.state.research.length ? <List research={research} /> : ''
+              }
+              <Footer />
+          </div>
+      )
   }
 }
 
-// import React from 'react';
-// import { connect } from 'react-redux';
-// import { fetchResearch } from '../reducers/sources.jsx'
-
-
-// class Search extends React.Component {
-//     constructor(props){
-//       super(props)
-
-//       this.state = {
-//         userInput: '',
-//         resources: props.resources,
-//         counter: 1
-//       }
-
-//       this.handleChange = this.handleChange.bind(this);
-//     }
-
-//     handleChange(event) {
-//       this.setState({
-//         userInput: event.target.value
-//       })
-//     }
-
-//     render(){
-
-//       return (
-//         <div>
-//           <h1>MVP! MVP!</h1>
-//           <p>search stuff here</p>
-//           <input
-//             placeholder="type something"
-//             onChange={ (event) => { event.preventDefault(); this.handleChange(event) }}
-//            />
-//           <button onClick={ () => this.props.getTheStuff(this.state.userInput)}>find me stuff</button>
-//         </div>
-//         )
-//     }
-//   }
-
-//   const mapState = (state) => {
-//     return {
-//       resources: state.resources
-//     }
-//   }
-
-//   const mapDispatch = (dispatch) => {
-//     return {
-//       getTheStuff: (topics) => dispatch(fetchResearch(topics))
-//     }
-//   }
-
-//   export default connect(mapState, mapDispatch)(Search)
+export default Search

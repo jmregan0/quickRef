@@ -24,7 +24,7 @@ const createApp = () => {
 
   // didn't match route. Send back index.html
   app.get('*', function (req, res) {
-    res.sendFile(path.resolve(__dirname, '../index.html'));
+    res.sendFile(path.join(__dirname, '../public/index.html'));
   });
 
   // didn't find what you were looking for?

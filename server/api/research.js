@@ -4,14 +4,13 @@ const axios = require('axios');
 
 research.post('/', function(req, res, next){
 
-  let searchParams = req.body.searchParams.split(' ');
 
-  console.log('searchParams', searchParams)
+let searchParams = req.body.tags;
 
-  var query = '';
+var query = '';
 
   searchParams.forEach((tag, index) => {
-    var s = tag.split(' ');
+    var s = tag.text.split(' ');
     if (s.length > 1){
       s.forEach((word, index) => {
         query += word
@@ -20,7 +19,7 @@ research.post('/', function(req, res, next){
         }
       })
     } else {
-      query += tag
+      query += tag.text
     }
     if (index < searchParams.length - 1){
       query += '+'
