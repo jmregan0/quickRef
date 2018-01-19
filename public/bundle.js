@@ -33956,7 +33956,7 @@ var _semanticUiReact = __webpack_require__(185);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var List = function List() {
+var List = function List(props) {
   return _react2.default.createElement(
     _semanticUiReact.Table,
     { celled: true, padded: true },
@@ -33966,114 +33966,73 @@ var List = function List() {
       _react2.default.createElement(
         _semanticUiReact.Table.Row,
         null,
+        _react2.default.createElement(_semanticUiReact.Table.HeaderCell, { singleLine: true }),
         _react2.default.createElement(
           _semanticUiReact.Table.HeaderCell,
-          { singleLine: true },
-          'Evidence Rating'
+          null,
+          'Resource Type'
         ),
         _react2.default.createElement(
           _semanticUiReact.Table.HeaderCell,
           null,
-          'Effect'
+          'Publisher'
         ),
         _react2.default.createElement(
           _semanticUiReact.Table.HeaderCell,
           null,
-          'Efficacy'
+          'Link'
         ),
         _react2.default.createElement(
           _semanticUiReact.Table.HeaderCell,
           null,
-          'Consensus'
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.HeaderCell,
-          null,
-          'Comments'
+          'Title'
         )
       )
     ),
     _react2.default.createElement(
       _semanticUiReact.Table.Body,
       null,
-      _react2.default.createElement(
-        _semanticUiReact.Table.Row,
-        null,
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
+      props.research.map(function (element, index) {
+        return _react2.default.createElement(
+          _semanticUiReact.Table.Row,
           null,
           _react2.default.createElement(
-            _semanticUiReact.Header,
-            { as: 'h2', textAlign: 'center' },
-            'A'
-          )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          { singleLine: true },
-          'Power Output'
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          null,
-          _react2.default.createElement(_semanticUiReact.Rating, { icon: 'star', defaultRating: 3, maxRating: 3 })
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          { textAlign: 'right' },
-          '80% ',
-          _react2.default.createElement('br', null),
+            _semanticUiReact.Table.Cell,
+            null,
+            _react2.default.createElement(
+              _semanticUiReact.Header,
+              { as: 'h2', textAlign: 'center' },
+              index + 1
+            )
+          ),
           _react2.default.createElement(
-            'a',
-            { href: '#' },
-            '18 studies'
-          )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          null,
-          'Creatine supplementation is the reference compound for increasing muscular creatine levels; there is variability in this increase, however, with some nonresponders.'
-        )
-      ),
-      _react2.default.createElement(
-        _semanticUiReact.Table.Row,
-        null,
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          null,
+            _semanticUiReact.Table.Cell,
+            { singleLine: true },
+            element.type
+          ),
           _react2.default.createElement(
-            _semanticUiReact.Header,
-            { as: 'h2', textAlign: 'center' },
-            'A'
-          )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          { singleLine: true },
-          'Weight'
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          null,
-          _react2.default.createElement(_semanticUiReact.Rating, { icon: 'star', defaultRating: 3, maxRating: 3 })
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          { textAlign: 'right' },
-          '100% ',
-          _react2.default.createElement('br', null),
+            _semanticUiReact.Table.Cell,
+            null,
+            _react2.default.createElement(_semanticUiReact.Rating, { icon: 'star', defaultRating: 3, maxRating: 3 })
+          ),
           _react2.default.createElement(
-            'a',
-            { href: '#' },
-            '65 studies'
+            _semanticUiReact.Table.Cell,
+            { textAlign: 'right' },
+            '80% ',
+            _react2.default.createElement('br', null),
+            _react2.default.createElement(
+              'a',
+              { href: '#' },
+              '18 studies'
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Table.Cell,
+            null,
+            element.title
           )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Cell,
-          null,
-          'Creatine is the reference compound for power improvement, with numbers from one meta-analysis to assess potency'
-        )
-      )
+        );
+      })
     )
   );
 };
