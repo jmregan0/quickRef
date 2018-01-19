@@ -1,5 +1,6 @@
 const research = require('express').Router();
 const axios = require('axios');
+const userId = require('../../mySecrets').userId
 
 
 research.post('/', function(req, res, next){
@@ -30,7 +31,7 @@ var query = '';
     method: 'get',
     url: `https://api.crossref.org/works?query=${query}`,
     headers: {
-      'User-Agent': 'quickref01@gmail.com'
+      'User-Agent': `${userId}`
     }
   })
   .then(info => {

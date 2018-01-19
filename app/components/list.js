@@ -1,17 +1,17 @@
 import React from 'react'
-import { Header, Table, Rating } from 'semantic-ui-react'
+import { Button, Checkbox, Icon, Table } from 'semantic-ui-react'
 
 const List = (props) => {
   return (
 
-  <Table celled padded>
-    <Table.Header>
+    <Table celled compact definition>
+    <Table.Header fullWidth>
       <Table.Row>
-        <Table.HeaderCell singleLine></Table.HeaderCell>
-        <Table.HeaderCell>Resource Type</Table.HeaderCell>
-        <Table.HeaderCell>Publisher</Table.HeaderCell>
-        <Table.HeaderCell>Link</Table.HeaderCell>
-        <Table.HeaderCell>Title</Table.HeaderCell>
+        <Table.HeaderCell />
+        <Table.HeaderCell>Name</Table.HeaderCell>
+        <Table.HeaderCell>Registration Date</Table.HeaderCell>
+        <Table.HeaderCell>E-mail address</Table.HeaderCell>
+        <Table.HeaderCell>Premium Plan</Table.HeaderCell>
       </Table.Row>
     </Table.Header>
 
@@ -19,27 +19,32 @@ const List = (props) => {
       {
         props.research.map((element, index) => {
           return (
-          <Table.Row>
-            <Table.Cell>
-              <Header as='h2' textAlign='center'>{index + 1}</Header>
-            </Table.Cell>
-            <Table.Cell singleLine>{element.type}</Table.Cell>
-            <Table.Cell>
-              <Rating icon='star' defaultRating={3} maxRating={3} />
-            </Table.Cell>
-            <Table.Cell textAlign='right'>
-                80% <br />
-              <a href='#'>18 studies</a>
-            </Table.Cell>
-            <Table.Cell>
-                {element.title}
-            </Table.Cell>
-          </Table.Row>
+            <Table.Row>
+              <Table.Cell collapsing>
+                <Checkbox slider />
+              </Table.Cell>
+              <Table.Cell>John Lilki</Table.Cell>
+              <Table.Cell>September 14, 2013</Table.Cell>
+              <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
+              <Table.Cell>No</Table.Cell>
+            </Table.Row>
           )
         })
       }
 
-    </Table.Body>
+      </Table.Body>
+      <Table.Footer fullWidth>
+      <Table.Row>
+        <Table.HeaderCell />
+        <Table.HeaderCell colSpan='4'>
+          <Button floated='right' icon labelPosition='left' primary size='small'>
+            <Icon name='user' /> Add User
+          </Button>
+          <Button size='small'>Approve</Button>
+          <Button disabled size='small'>Approve All</Button>
+        </Table.HeaderCell>
+      </Table.Row>
+    </Table.Footer>
   </Table>
 )
 }

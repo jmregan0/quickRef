@@ -4,12 +4,13 @@ import { WithContext as ReactTags } from 'react-tag-input';
 import axios from 'axios'
 import List from './list'
 
+
 class Search extends React.Component {
   constructor(props) {
       super(props);
 
       this.state = {
-          tags: [{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+          tags: [],
           research: []
       };
       this.handleDelete = this.handleDelete.bind(this);
@@ -60,16 +61,25 @@ class Search extends React.Component {
       const { tags, suggestions, research } = this.state;
       return (
           <div>
+              <br />
               <ReactTags tags={tags}
                   suggestions={suggestions}
                   handleDelete={this.handleDelete}
                   handleAddition={this.handleAddition}
                   handleDrag={this.handleDrag} />
+             <br />
 
               <button onClick={this.submitQuery}>Button</button>
 
               {
-                this.state.research.length ? <List research={research} /> : ''
+                this.state.research.length ?
+                <List research={research} />
+                :
+                <div>
+                    <br />
+                    <h1>Get Started. Add some tags above!</h1>
+                    <br />
+                </div>
               }
               <Footer />
           </div>

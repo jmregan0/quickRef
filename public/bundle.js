@@ -16495,113 +16495,10 @@ var Footer = function Footer() {
     _react2.default.createElement(
       _semanticUiReact.Container,
       { textAlign: 'center' },
-      _react2.default.createElement(
-        _semanticUiReact.Grid,
-        { columns: 4, divided: true, stackable: true, inverted: true },
-        _react2.default.createElement(
-          _semanticUiReact.Grid.Row,
-          null,
-          _react2.default.createElement(
-            _semanticUiReact.Grid.Column,
-            null,
-            _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Group 1' }),
-            _react2.default.createElement(
-              _semanticUiReact.List,
-              { link: true, inverted: true },
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link One'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Two'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Three'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Four'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Grid.Column,
-            null,
-            _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Group 2' }),
-            _react2.default.createElement(
-              _semanticUiReact.List,
-              { link: true, inverted: true },
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link One'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Two'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Three'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Four'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Grid.Column,
-            null,
-            _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Group 3' }),
-            _react2.default.createElement(
-              _semanticUiReact.List,
-              { link: true, inverted: true },
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link One'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Two'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Three'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.List.Item,
-                { as: 'a' },
-                'Link Four'
-              )
-            )
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Grid.Column,
-            null,
-            _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Footer Header' }),
-            _react2.default.createElement(
-              'p',
-              null,
-              'Extra space for a call to action inside the footer that could help re-engage users.'
-            )
-          )
-        )
-      ),
+      _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Questions?' }),
+      _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Wanna see the Code?' }),
+      _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Contact info below' }),
       _react2.default.createElement(_semanticUiReact.Divider, { inverted: true, section: true }),
-      _react2.default.createElement(_semanticUiReact.Image, { src: '/logo.png', centered: true, size: 'mini' }),
       _react2.default.createElement(
         _semanticUiReact.List,
         { horizontal: true, inverted: true, divided: true, link: true },
@@ -33959,33 +33856,33 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var List = function List(props) {
   return _react2.default.createElement(
     _semanticUiReact.Table,
-    { celled: true, padded: true },
+    { celled: true, compact: true, definition: true },
     _react2.default.createElement(
       _semanticUiReact.Table.Header,
-      null,
+      { fullWidth: true },
       _react2.default.createElement(
         _semanticUiReact.Table.Row,
         null,
-        _react2.default.createElement(_semanticUiReact.Table.HeaderCell, { singleLine: true }),
+        _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
         _react2.default.createElement(
           _semanticUiReact.Table.HeaderCell,
           null,
-          'Resource Type'
+          'Name'
         ),
         _react2.default.createElement(
           _semanticUiReact.Table.HeaderCell,
           null,
-          'Publisher'
+          'Registration Date'
         ),
         _react2.default.createElement(
           _semanticUiReact.Table.HeaderCell,
           null,
-          'Link'
+          'E-mail address'
         ),
         _react2.default.createElement(
           _semanticUiReact.Table.HeaderCell,
           null,
-          'Title'
+          'Premium Plan'
         )
       )
     ),
@@ -33998,41 +33895,60 @@ var List = function List(props) {
           null,
           _react2.default.createElement(
             _semanticUiReact.Table.Cell,
-            null,
-            _react2.default.createElement(
-              _semanticUiReact.Header,
-              { as: 'h2', textAlign: 'center' },
-              index + 1
-            )
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Table.Cell,
-            { singleLine: true },
-            element.type
+            { collapsing: true },
+            _react2.default.createElement(_semanticUiReact.Checkbox, { slider: true })
           ),
           _react2.default.createElement(
             _semanticUiReact.Table.Cell,
             null,
-            _react2.default.createElement(_semanticUiReact.Rating, { icon: 'star', defaultRating: 3, maxRating: 3 })
-          ),
-          _react2.default.createElement(
-            _semanticUiReact.Table.Cell,
-            { textAlign: 'right' },
-            '80% ',
-            _react2.default.createElement('br', null),
-            _react2.default.createElement(
-              'a',
-              { href: '#' },
-              '18 studies'
-            )
+            'John Lilki'
           ),
           _react2.default.createElement(
             _semanticUiReact.Table.Cell,
             null,
-            element.title
+            'September 14, 2013'
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Table.Cell,
+            null,
+            'jhlilk22@yahoo.com'
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Table.Cell,
+            null,
+            'No'
           )
         );
       })
+    ),
+    _react2.default.createElement(
+      _semanticUiReact.Table.Footer,
+      { fullWidth: true },
+      _react2.default.createElement(
+        _semanticUiReact.Table.Row,
+        null,
+        _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
+        _react2.default.createElement(
+          _semanticUiReact.Table.HeaderCell,
+          { colSpan: '4' },
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            { floated: 'right', icon: true, labelPosition: 'left', primary: true, size: 'small' },
+            _react2.default.createElement(_semanticUiReact.Icon, { name: 'user' }),
+            ' Add User'
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            { size: 'small' },
+            'Approve'
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            { disabled: true, size: 'small' },
+            'Approve All'
+          )
+        )
+      )
     )
   );
 };
@@ -70156,7 +70072,7 @@ var Search = function (_React$Component) {
         var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
 
         _this.state = {
-            tags: [{ id: 1, text: "Thailand" }, { id: 2, text: "India" }],
+            tags: [],
             research: []
         };
         _this.handleDelete = _this.handleDelete.bind(_this);
@@ -70220,17 +70136,29 @@ var Search = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(_reactTagInput.WithContext, { tags: tags,
                     suggestions: suggestions,
                     handleDelete: this.handleDelete,
                     handleAddition: this.handleAddition,
                     handleDrag: this.handleDrag }),
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'button',
                     { onClick: this.submitQuery },
                     'Button'
                 ),
-                this.state.research.length ? _react2.default.createElement(_list2.default, { research: research }) : '',
+                this.state.research.length ? _react2.default.createElement(_list2.default, { research: research }) : _react2.default.createElement(
+                    'div',
+                    null,
+                    _react2.default.createElement('br', null),
+                    _react2.default.createElement(
+                        'h1',
+                        null,
+                        'Get Started. Add some tags above!'
+                    ),
+                    _react2.default.createElement('br', null)
+                ),
                 _react2.default.createElement(_footer2.default, null)
             );
         }
