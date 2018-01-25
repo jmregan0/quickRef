@@ -1,8 +1,9 @@
 import React from 'react'
 import Footer from './footer'
 import { WithContext as ReactTags } from 'react-tag-input';
-import axios from 'axios'
 import List from './list'
+import { connect } from 'react-redux'
+import { fetchResearch } from '../reducers/sources.jsx'
 
 
 class Search extends React.Component {
@@ -10,14 +11,15 @@ class Search extends React.Component {
       super(props);
 
       this.state = {
-          tags: [],
-          research: []
+          tags: []
       };
+
       this.handleDelete = this.handleDelete.bind(this);
       this.handleAddition = this.handleAddition.bind(this);
       this.handleDrag = this.handleDrag.bind(this);
-      this.submitQuery = this.submitQuery.bind(this);
+    //   this.submitQuery = this.submitQuery.bind(this);
   }
+
 
   handleDelete(i) {
       let tags = this.state.tags;
@@ -45,20 +47,20 @@ class Search extends React.Component {
       this.setState({ tags: tags });
   }
 
-  submitQuery() {
-    axios.post('api/research', {
-      tags: this.state.tags
-    })
-    .then(res => {
-      console.log(res)
-      this.setState({
-        research: res.data
-      })
-    })
-  }
+//   submitQuery() {
+//     axios.post('api/research', {
+//       tags: this.state.tags
+//     })
+//     .then(res => {
+//       console.log(res)
+//       this.setState({
+//         research: res.data
+//       })
+//     })
+//   }
 
   render() {
-      const { tags, suggestions, research } = this.state;
+      const { tags, suggestions } = this.state;
       return (
           <div>
               <br />
@@ -69,11 +71,11 @@ class Search extends React.Component {
                   handleDrag={this.handleDrag} />
              <br />
 
-              <button onClick={this.submitQuery}>Button</button>
+              <button onClick={ () => {this.props.fetchResearch(this.state.tags)}} disabled={!this.state.tags.length}>Button</button>
 
               {
-                this.state.research.length ?
-                <List research={research} />
+                this.props.research.sources.length ?
+                <List research={this.props.research.sources} />
                 :
                 <div>
                     <br />
@@ -81,10 +83,24 @@ class Search extends React.Component {
                     <br />
                 </div>
               }
+
               <Footer />
           </div>
       )
   }
 }
 
-export default Search
+const mapState = (state) => {
+    return {
+      research: state.research
+    }
+  }
+
+const mapDispatch = (dispatch) => {
+    return {
+      fetchResearch: (tags) => { dispatch(fetchResearch(tags)) }
+    }
+}
+
+
+export default connect(mapState, mapDispatch)(Search)

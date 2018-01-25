@@ -5,7 +5,7 @@ const userId = require('../../mySecrets').userId
 
 research.post('/', function(req, res, next){
 
-
+console.log('req.body', req.body)
 let searchParams = req.body.tags;
 
 var query = '';

@@ -2,10 +2,11 @@ import axios from 'axios';
 
 // Action-Types:
 const RETRIEVE_DATA = 'RETRIEVE_DATA';
+const UPDATE_SELECTED = 'UPDATE_SELECTED';
 
 // Initial State
 const initialState = {
-  resources: []
+  sources: []
 }
 
 
@@ -17,18 +18,29 @@ const setData = (payload) => {
   }
 }
 
+export const updateSelected = (index, bool) => {
+  return {
+    type: UPDATE_SELECTED,
+    index,
+    bool
+  }
+}
+
 // dispatch methods/THUNKS:
 export const fetchResearch = (searchParams) =>
 (dispatch) => {
-  return axios({
-    method: 'post',
-    url: 'http://localhost:3000/api/research',
-    data: {
-      searchParams: searchParams
-    }
+  axios.post('api/research', {
+    tags: searchParams
 })
 .then(result => {
-  dispatch(setData(result.data))
+
+  let info = result.data;
+
+  info.map(item => {
+    item.isSelected = false
+  })
+
+  dispatch(setData(info))
 })
 .catch(err => console.log(err))
 }
@@ -40,7 +52,10 @@ export default function(state = initialState, action) {
 
   switch (action.type) {
     case RETRIEVE_DATA:
-      newState.resources = action.payload
+      newState.sources = action.payload
+      break
+    case UPDATE_SELECTED:
+      newState.sources[action.index].isSelected = action.bool
       break
     default:
       return state
