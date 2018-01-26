@@ -8,14 +8,31 @@ class List extends Component {
   constructor(props) {
     super(props)
 
-    this.handleClick = this.handleClick.bind(this)
-    this.updateSelected = props.updateSelected;
+    // this.handleClick = this.handleClick.bind(this)
+    // this.updateSelection = props.updateSelection;
   }
 
   handleClick(index) {
     this.props.research[index].isSelected === true ?
-    this.updateSelected(index, false) :
-    this.updateSelected(index, true)
+    this.props.updateSelection(index, false) :
+    this.props.updateSelection(index, true)
+  }
+
+  sendMeStuff() {
+    let selections = this.props.research.filter(element => {
+      return element.isSelected
+    })
+    if (selections.length < 1) {
+      console.log('make some selections first')
+    } else {
+      console.log(selections);
+    }
+  }
+
+  sendAll() {
+    let selections = this.props.research;
+
+    console.log(selections)
   }
 
   render () {
@@ -39,7 +56,10 @@ class List extends Component {
             return (
               <Table.Row>
                 <Table.Cell collapsing>
-                  <Checkbox checked={element.isSelected} slider onClick={ () => { this.handleClick(index) } } />
+                  <Checkbox
+                   defaultChecked={false}
+                   slider
+                   onChange={ () => {this.handleClick(index)} } />
                 </Table.Cell>
                 <Table.Cell>{element.type}</Table.Cell>
                 <Table.Cell>
@@ -65,8 +85,16 @@ class List extends Component {
             <Button floated='right' icon labelPosition='left' primary size='small'>
               <Icon name='user' /> Add User
             </Button>
-            <Button size='small' onClick={this.handleClick}>Approve</Button>
-            <Button disabled size='small'>Approve All</Button>
+            <Button
+             size='small'
+             onClick={ () => { this.sendMeStuff() } }>
+             Email Selections
+            </Button>
+            <Button
+             size='small'
+             onClick={ () => { this.sendAll() } }>
+             Email All
+            </Button>
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>
@@ -75,14 +103,16 @@ class List extends Component {
   }
 }
 
-// const mapState = (state) => {
-//   return {}
-// }
-
-const mapDispatch = (dispatch) => {
+const mapState = (state) => {
   return {
-    updateSelected: (index, bool) => { dispatch(updateSelected(index, bool))}
+    research: state.research.sources
   }
 }
 
-export default connect(null, mapDispatch)(List)
+const mapDispatch = (dispatch) => {
+  return {
+    updateSelection: (index, bool) => { dispatch(updateSelected(index, bool))}
+  }
+}
+
+export default connect(mapState, mapDispatch)(List)

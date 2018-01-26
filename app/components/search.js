@@ -75,7 +75,7 @@ class Search extends React.Component {
 
               {
                 this.props.research.sources.length ?
-                <List research={this.props.research.sources} />
+                <List />
                 :
                 <div>
                     <br />

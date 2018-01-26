@@ -33966,17 +33966,35 @@ var List = function (_Component) {
   function List(props) {
     _classCallCheck(this, List);
 
-    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
 
-    _this.handleClick = _this.handleClick.bind(_this);
-    _this.updateSelected = props.updateSelected;
-    return _this;
+    // this.handleClick = this.handleClick.bind(this)
+    // this.updateSelection = props.updateSelection;
   }
 
   _createClass(List, [{
     key: 'handleClick',
     value: function handleClick(index) {
-      this.props.research[index].isSelected === true ? this.updateSelected(index, false) : this.updateSelected(index, true);
+      this.props.research[index].isSelected === true ? this.props.updateSelection(index, false) : this.props.updateSelection(index, true);
+    }
+  }, {
+    key: 'sendMeStuff',
+    value: function sendMeStuff() {
+      var selections = this.props.research.filter(function (element) {
+        return element.isSelected;
+      });
+      if (selections.length < 1) {
+        console.log('make some selections first');
+      } else {
+        console.log(selections);
+      }
+    }
+  }, {
+    key: 'sendAll',
+    value: function sendAll() {
+      var selections = this.props.research;
+
+      console.log(selections);
     }
   }, {
     key: 'render',
@@ -34025,7 +34043,10 @@ var List = function (_Component) {
               _react2.default.createElement(
                 _semanticUiReact.Table.Cell,
                 { collapsing: true },
-                _react2.default.createElement(_semanticUiReact.Checkbox, { checked: element.isSelected, slider: true, onClick: function onClick() {
+                _react2.default.createElement(_semanticUiReact.Checkbox, {
+                  defaultChecked: false,
+                  slider: true,
+                  onChange: function onChange() {
                     _this2.handleClick(index);
                   } })
               ),
@@ -34070,13 +34091,21 @@ var List = function (_Component) {
               ),
               _react2.default.createElement(
                 _semanticUiReact.Button,
-                { size: 'small', onClick: this.handleClick },
-                'Approve'
+                {
+                  size: 'small',
+                  onClick: function onClick() {
+                    _this2.sendMeStuff();
+                  } },
+                'Email Selections'
               ),
               _react2.default.createElement(
                 _semanticUiReact.Button,
-                { disabled: true, size: 'small' },
-                'Approve All'
+                {
+                  size: 'small',
+                  onClick: function onClick() {
+                    _this2.sendAll();
+                  } },
+                'Email All'
               )
             )
           )
@@ -34088,19 +34117,21 @@ var List = function (_Component) {
   return List;
 }(_react.Component);
 
-// const mapState = (state) => {
-//   return {}
-// }
+var mapState = function mapState(state) {
+  return {
+    research: state.research.sources
+  };
+};
 
 var mapDispatch = function mapDispatch(dispatch) {
   return {
-    updateSelected: function updateSelected(index, bool) {
+    updateSelection: function updateSelection(index, bool) {
       dispatch((0, _sources.updateSelected)(index, bool));
     }
   };
 };
 
-exports.default = (0, _reactRedux.connect)(null, mapDispatch)(List);
+exports.default = (0, _reactRedux.connect)(mapState, mapDispatch)(List);
 
 /***/ }),
 /* 504 */
@@ -70217,7 +70248,7 @@ var Search = function (_React$Component) {
                         }, disabled: !this.state.tags.length },
                     'Button'
                 ),
-                this.props.research.sources.length ? _react2.default.createElement(_list2.default, { research: this.props.research.sources }) : _react2.default.createElement(
+                this.props.research.sources.length ? _react2.default.createElement(_list2.default, null) : _react2.default.createElement(
                     'div',
                     null,
                     _react2.default.createElement('br', null),
