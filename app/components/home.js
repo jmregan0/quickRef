@@ -1,10 +1,9 @@
 import React from 'react';
 import {
-  Container, Header
+  Container, Header, Button
 } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Footer from './footer'
-import { Button } from 'semantic-ui-react'
 
 export default class Home extends React.Component {
 
@@ -23,9 +22,8 @@ export default class Home extends React.Component {
     return (
       <div>
         <Container text style={{ marginTop: '2em' }}>
-          <Header as='h1'>QuickRef Research Tool</Header>
+          <Header as='h1'>QuickSource Research Tool</Header>
         </Container>
-
 
         <Container text>
           <p style={{marginTop: '2em'}}>

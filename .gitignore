@@ -1,3 +1,4 @@
 node_modules
-mySecrets.js
+mySecrets.json
 public/bundle.js
+keys.json

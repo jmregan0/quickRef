@@ -29,7 +29,7 @@ var query = '';
 
   axios({
     method: 'get',
-    url: `https://api.crossref.org/works?query=${query}`,
+    url: `https://api.crossref.org/works?query=${query}&rows=100`,
     headers: {
       'User-Agent': `${userId}`
     }

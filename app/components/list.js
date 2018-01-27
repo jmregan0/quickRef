@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Button, Checkbox, Icon, Table } from 'semantic-ui-react'
 import { updateSelected } from '../reducers/sources.jsx'
+import { Modal } from './index'
+import axios from 'axios'
 
 
 class List extends Component {
@@ -29,10 +31,16 @@ class List extends Component {
     }
   }
 
-  sendAll() {
+  sendAll(address) {
     let selections = this.props.research;
 
-    console.log(selections)
+    return axios.post('api/email', {
+      sendTo: address
+    })
+    .then(result => {
+      console.log(result)
+    })
+    // console.log(selections)
   }
 
   render () {
@@ -45,8 +53,9 @@ class List extends Component {
           <Table.HeaderCell />
           <Table.HeaderCell>Data Type</Table.HeaderCell>
           <Table.HeaderCell>Title</Table.HeaderCell>
-          <Table.HeaderCell>E-mail address</Table.HeaderCell>
-          <Table.HeaderCell>Premium Plan</Table.HeaderCell>
+          <Table.HeaderCell>Collection Name</Table.HeaderCell>
+          {/* <Table.HeaderCell>Author</Table.HeaderCell> */}
+          <Table.HeaderCell>Publisher</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
 
@@ -64,14 +73,25 @@ class List extends Component {
                 <Table.Cell>{element.type}</Table.Cell>
                 <Table.Cell>
                   {
-                  element.title[0].length > 80 ?
-                  element.title[0].slice(0, 80) + '...'
-                  :
-                  element.title
+                  // element.title[0].length > 80 ?
+                  // element.title[0].slice(0, 80) + '...'
+                  // :
+                  // element.title
+                  <Modal item={element} />
                   }
                 </Table.Cell>
-                <Table.Cell>jhlilk22@yahoo.com</Table.Cell>
-                <Table.Cell>No</Table.Cell>
+                <Table.Cell>{element['container-title']}</Table.Cell>
+                {/* <Table.Cell>
+                {
+                  element.author ?
+                  element.author[0].given
+                  + ' ' +
+                  element.author[0].family
+                  :
+                  'not listed'
+                }
+                </Table.Cell> */}
+                <Table.Cell>{element.publisher}</Table.Cell>
               </Table.Row>
             )
           })

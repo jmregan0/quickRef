@@ -4,5 +4,7 @@ const router = require('express').Router();
 
 router.use('/research', require('./research'));
 
+router.use('/email', require('./email'));
+
 
 module.exports = router;

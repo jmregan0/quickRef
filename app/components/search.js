@@ -63,24 +63,26 @@ class Search extends React.Component {
       const { tags, suggestions } = this.state;
       return (
           <div>
-              <br />
-              <ReactTags tags={tags}
-                  suggestions={suggestions}
-                  handleDelete={this.handleDelete}
-                  handleAddition={this.handleAddition}
-                  handleDrag={this.handleDrag} />
-             <br />
-
-              <button onClick={ () => {this.props.fetchResearch(this.state.tags)}} disabled={!this.state.tags.length}>Button</button>
-
               {
-                this.props.research.sources.length ?
-                <List />
-                :
-                <div>
-                    <br />
-                    <h1>Get Started. Add some tags above!</h1>
-                    <br />
+               this.props.research.sources.length ?
+               <List />
+               :
+               <div>
+                <br />
+                <ReactTags tags={tags}
+                    suggestions={suggestions}
+                    handleDelete={this.handleDelete}
+                    handleAddition={this.handleAddition}
+                    handleDrag={this.handleDrag} />
+                <br />
+
+                <button onClick={ () => {this.props.fetchResearch(this.state.tags)}} disabled={!this.state.tags.length}>Button</button>
+
+                    <div>
+                        <br />
+                        <h1>Get Started. Add some tags above!</h1>
+                        <br />
+                    </div>
                 </div>
               }
 
