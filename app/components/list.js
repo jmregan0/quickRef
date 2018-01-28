@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Checkbox, Icon, Table } from 'semantic-ui-react'
+import { Button, Select, Input, Checkbox, Icon, Table } from 'semantic-ui-react'
 import { updateSelected } from '../reducers/sources.jsx'
 import { Modal } from './index'
 import axios from 'axios'
@@ -10,6 +10,12 @@ class List extends Component {
   constructor(props) {
     super(props)
 
+    this.state = {
+      options: [
+        { key: 'all', text: 'All', value: 'all' },
+        { key: 'selected', text: 'Selected', value: 'selected' }
+      ]
+    }
     // this.handleClick = this.handleClick.bind(this)
     // this.updateSelection = props.updateSelection;
   }
@@ -51,6 +57,7 @@ class List extends Component {
       <Table.Header fullWidth>
         <Table.Row>
           <Table.HeaderCell />
+          <Table.HeaderCell />
           <Table.HeaderCell>Data Type</Table.HeaderCell>
           <Table.HeaderCell>Title</Table.HeaderCell>
           <Table.HeaderCell>Collection Name</Table.HeaderCell>
@@ -70,6 +77,7 @@ class List extends Component {
                    slider
                    onChange={ () => {this.handleClick(index)} } />
                 </Table.Cell>
+                <Table.Cell>{index + 1}</Table.Cell>
                 <Table.Cell>{element.type}</Table.Cell>
                 <Table.Cell>
                   {
@@ -105,7 +113,7 @@ class List extends Component {
             <Button floated='right' icon labelPosition='left' primary size='small'>
               <Icon name='user' /> Add User
             </Button>
-            <Button
+            {/* <Button
              size='small'
              onClick={ () => { this.sendMeStuff() } }>
              Email Selections
@@ -114,7 +122,12 @@ class List extends Component {
              size='small'
              onClick={ () => { this.sendAll() } }>
              Email All
-            </Button>
+            </Button> */}
+            <Input type='text' placeholder='your email' action>
+              <input />
+              <Select compact options={this.state.options} defaultValue='selected' />
+              <Button type='submit'>Send</Button>
+            </Input>
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>

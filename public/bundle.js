@@ -34036,10 +34036,13 @@ var List = function (_Component) {
   function List(props) {
     _classCallCheck(this, List);
 
-    return _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
 
-    // this.handleClick = this.handleClick.bind(this)
-    // this.updateSelection = props.updateSelection;
+    _this.state = {
+      options: [{ key: 'all', text: 'All', value: 'all' }, { key: 'selected', text: 'Selected', value: 'selected' }]
+      // this.handleClick = this.handleClick.bind(this)
+      // this.updateSelection = props.updateSelection;
+    };return _this;
   }
 
   _createClass(List, [{
@@ -34086,6 +34089,7 @@ var List = function (_Component) {
             _semanticUiReact.Table.Row,
             null,
             _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
+            _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
             _react2.default.createElement(
               _semanticUiReact.Table.HeaderCell,
               null,
@@ -34124,6 +34128,11 @@ var List = function (_Component) {
                   onChange: function onChange() {
                     _this2.handleClick(index);
                   } })
+              ),
+              _react2.default.createElement(
+                _semanticUiReact.Table.Cell,
+                null,
+                index + 1
               ),
               _react2.default.createElement(
                 _semanticUiReact.Table.Cell,
@@ -34170,22 +34179,15 @@ var List = function (_Component) {
                 ' Add User'
               ),
               _react2.default.createElement(
-                _semanticUiReact.Button,
-                {
-                  size: 'small',
-                  onClick: function onClick() {
-                    _this2.sendMeStuff();
-                  } },
-                'Email Selections'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Button,
-                {
-                  size: 'small',
-                  onClick: function onClick() {
-                    _this2.sendAll();
-                  } },
-                'Email All'
+                _semanticUiReact.Input,
+                { type: 'text', placeholder: 'your email', action: true },
+                _react2.default.createElement('input', null),
+                _react2.default.createElement(_semanticUiReact.Select, { compact: true, options: this.state.options, defaultValue: 'selected' }),
+                _react2.default.createElement(
+                  _semanticUiReact.Button,
+                  { type: 'submit' },
+                  'Send'
+                )
               )
             )
           )
@@ -75520,30 +75522,27 @@ var ModalComponent = function (_Component) {
           _react2.default.createElement(
             _semanticUiReact.Modal.Header,
             null,
-            'Select a Photo'
+            this.props.item.type
           ),
           _react2.default.createElement(
             _semanticUiReact.Modal.Content,
-            { image: true },
-            _react2.default.createElement(_semanticUiReact.Image, { wrapped: true, size: 'medium', src: '/assets/images/avatar/large/rachel.png' }),
+            { image: true, scrolling: true },
+            _react2.default.createElement(_semanticUiReact.Image, {
+              wrapped: true, size: 'medium',
+              src: 'images/book.png' }),
             _react2.default.createElement(
               _semanticUiReact.Modal.Description,
               null,
               _react2.default.createElement(
                 _semanticUiReact.Header,
                 null,
-                'Default Profile Image'
+                this.props.item.title
               ),
-              _react2.default.createElement(
+              this.props.item.abstract ? _react2.default.createElement(
                 'p',
                 null,
-                'We\'ve found the following gravatar image associated with your e-mail address.'
-              ),
-              _react2.default.createElement(
-                'p',
-                null,
-                'Is it okay to use this photo?'
-              )
+                this.props.item.abstract
+              ) : 'placeholder'
             )
           ),
           _react2.default.createElement(

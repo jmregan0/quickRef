@@ -32,13 +32,19 @@ class ModalComponent extends Component {
         </Button>
 
         <Modal dimmer={dimmer} open={open} onClose={this.close()}>
-          <Modal.Header>Select a Photo</Modal.Header>
-          <Modal.Content image>
-            <Image wrapped size='medium' src='/assets/images/avatar/large/rachel.png' />
+          <Modal.Header>{this.props.item.type}</Modal.Header>
+          <Modal.Content image scrolling>
+            <Image
+             wrapped size='medium'
+             src={'images/book.png'} />
             <Modal.Description>
-              <Header>Default Profile Image</Header>
-              <p>We've found the following gravatar image associated with your e-mail address.</p>
-              <p>Is it okay to use this photo?</p>
+              <Header>{this.props.item.title}</Header>
+              {
+                this.props.item.abstract ?
+                <p>{this.props.item.abstract}</p>
+                :
+                'placeholder'
+              }
             </Modal.Description>
           </Modal.Content>
           <Modal.Actions>
