@@ -16,8 +16,8 @@ const createApp = () => {
   app.use(express.static(path.resolve(__dirname, '../public')))
 
   // requests contain a body. If you want to use it in req.body, you will need some body parsing middleware
-  app.use(bodyParser.json());
-  app.use(bodyParser.urlencoded({extended: true}))
+  app.use(bodyParser.json({limit: '50mb'}));
+  app.use(bodyParser.urlencoded({limit: '50mb', extended: true}))
 
   // establish api routes
   app.use('/api', require('./api'));

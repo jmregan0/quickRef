@@ -14,7 +14,9 @@ class List extends Component {
       options: [
         { key: 'all', text: 'All', value: 'all' },
         { key: 'selected', text: 'Selected', value: 'selected' }
-      ]
+      ],
+      userEmail: '',
+      dropdown: 'selected'
     }
     // this.handleClick = this.handleClick.bind(this)
     // this.updateSelection = props.updateSelection;
@@ -26,28 +28,46 @@ class List extends Component {
     this.props.updateSelection(index, true)
   }
 
-  sendMeStuff() {
+
+  sendMeStuff(address) {
+
     let selections = this.props.research.filter(element => {
       return element.isSelected
     })
+
     if (selections.length < 1) {
       console.log('make some selections first')
     } else {
-      console.log(selections);
+      return axios.post('api/email', {
+        sendTo: address,
+        research: selections
+      })
+      .then(result => {console.log(result)})
     }
   }
 
   sendAll(address) {
+
     let selections = this.props.research;
 
     return axios.post('api/email', {
-      sendTo: address
+      sendTo: address,
+      research: selections
     })
     .then(result => {
       console.log(result)
     })
     // console.log(selections)
   }
+
+  sendSources(whichOnes) {
+    if (whichOnes == 'all'){
+      this.sendAll(this.state.userEmail)
+    } else {
+      this.sendMeStuff(this.state.userEmail)
+    }
+  }
+
 
   render () {
 
@@ -110,9 +130,6 @@ class List extends Component {
         <Table.Row>
           <Table.HeaderCell />
           <Table.HeaderCell colSpan='4'>
-            <Button floated='right' icon labelPosition='left' primary size='small'>
-              <Icon name='user' /> Add User
-            </Button>
             {/* <Button
              size='small'
              onClick={ () => { this.sendMeStuff() } }>
@@ -120,14 +137,30 @@ class List extends Component {
             </Button>
             <Button
              size='small'
-             onClick={ () => { this.sendAll() } }>
+             onClick={ () => { this.sendAll('jacobmregan0@gmail.com') } }>
              Email All
             </Button> */}
-            <Input type='text' placeholder='your email' action>
+
+            <Input
+             onChange={ (e) => {this.setState({userEmail: e.target.value})} }
+             type='text'
+             placeholder='your email'
+             action>
+
               <input />
-              <Select compact options={this.state.options} defaultValue='selected' />
-              <Button type='submit'>Send</Button>
+
+              <Select
+               compact options={this.state.options} defaultValue='selected'
+               onChange={ (e, data) => { this.setState({dropdown: data.value})} }
+               />
+
+              <Button
+               primary type='submit'
+               onClick={ () => { this.sendSources(this.state.dropdown) }}>Send
+              </Button>
+
             </Input>
+
           </Table.HeaderCell>
         </Table.Row>
       </Table.Footer>

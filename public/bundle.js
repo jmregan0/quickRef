@@ -34039,7 +34039,9 @@ var List = function (_Component) {
     var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
 
     _this.state = {
-      options: [{ key: 'all', text: 'All', value: 'all' }, { key: 'selected', text: 'Selected', value: 'selected' }]
+      options: [{ key: 'all', text: 'All', value: 'all' }, { key: 'selected', text: 'Selected', value: 'selected' }],
+      userEmail: '',
+      dropdown: 'selected'
       // this.handleClick = this.handleClick.bind(this)
       // this.updateSelection = props.updateSelection;
     };return _this;
@@ -34052,27 +34054,45 @@ var List = function (_Component) {
     }
   }, {
     key: 'sendMeStuff',
-    value: function sendMeStuff() {
+    value: function sendMeStuff(address) {
+
       var selections = this.props.research.filter(function (element) {
         return element.isSelected;
       });
+
       if (selections.length < 1) {
         console.log('make some selections first');
       } else {
-        console.log(selections);
+        return _axios2.default.post('api/email', {
+          sendTo: address,
+          research: selections
+        }).then(function (result) {
+          console.log(result);
+        });
       }
     }
   }, {
     key: 'sendAll',
     value: function sendAll(address) {
+
       var selections = this.props.research;
 
       return _axios2.default.post('api/email', {
-        sendTo: address
+        sendTo: address,
+        research: selections
       }).then(function (result) {
         console.log(result);
       });
       // console.log(selections)
+    }
+  }, {
+    key: 'sendSources',
+    value: function sendSources(whichOnes) {
+      if (whichOnes == 'all') {
+        this.sendAll(this.state.userEmail);
+      } else {
+        this.sendMeStuff(this.state.userEmail);
+      }
     }
   }, {
     key: 'render',
@@ -34173,19 +34193,28 @@ var List = function (_Component) {
               _semanticUiReact.Table.HeaderCell,
               { colSpan: '4' },
               _react2.default.createElement(
-                _semanticUiReact.Button,
-                { floated: 'right', icon: true, labelPosition: 'left', primary: true, size: 'small' },
-                _react2.default.createElement(_semanticUiReact.Icon, { name: 'user' }),
-                ' Add User'
-              ),
-              _react2.default.createElement(
                 _semanticUiReact.Input,
-                { type: 'text', placeholder: 'your email', action: true },
+                {
+                  onChange: function onChange(e) {
+                    _this2.setState({ userEmail: e.target.value });
+                  },
+                  type: 'text',
+                  placeholder: 'your email',
+                  action: true },
                 _react2.default.createElement('input', null),
-                _react2.default.createElement(_semanticUiReact.Select, { compact: true, options: this.state.options, defaultValue: 'selected' }),
+                _react2.default.createElement(_semanticUiReact.Select, {
+                  compact: true, options: this.state.options, defaultValue: 'selected',
+                  onChange: function onChange(e, data) {
+                    _this2.setState({ dropdown: data.value });
+                  }
+                }),
                 _react2.default.createElement(
                   _semanticUiReact.Button,
-                  { type: 'submit' },
+                  {
+                    primary: true, type: 'submit',
+                    onClick: function onClick() {
+                      _this2.sendSources(_this2.state.dropdown);
+                    } },
                   'Send'
                 )
               )
@@ -75543,6 +75572,11 @@ var ModalComponent = function (_Component) {
                 null,
                 this.props.item.abstract
               ) : 'placeholder'
+            ),
+            _react2.default.createElement(
+              'a',
+              { href: this.props.item.URL },
+              'view resource'
             )
           ),
           _react2.default.createElement(

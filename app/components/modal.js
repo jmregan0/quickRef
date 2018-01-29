@@ -46,6 +46,7 @@ class ModalComponent extends Component {
                 'placeholder'
               }
             </Modal.Description>
+            <a href={this.props.item.URL}>view resource</a>
           </Modal.Content>
           <Modal.Actions>
             <Button color='black' onClick={this.close()}>
