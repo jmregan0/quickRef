@@ -12784,6 +12784,15 @@ Object.defineProperty(exports, 'Contact', {
   }
 });
 
+var _header = __webpack_require__(1059);
+
+Object.defineProperty(exports, 'TopNav', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_header).default;
+  }
+});
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
@@ -16664,14 +16673,13 @@ var Footer = function Footer(props) {
     _react2.default.createElement(
       _semanticUiReact.Container,
       { textAlign: 'center' },
-      _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Contact info below' }),
-      _react2.default.createElement(_semanticUiReact.Divider, { inverted: true, section: true }),
       _react2.default.createElement(
         _semanticUiReact.List,
         { horizontal: true, inverted: true, divided: true, link: true },
         _react2.default.createElement(
           _semanticUiReact.List.Item,
-          { as: 'a', href: 'https://github.com/jmregan0/quickRef' },
+          { as: 'a',
+            href: 'https://github.com/jmregan0/quickRef' },
           'Github'
         ),
         _react2.default.createElement(
@@ -16679,14 +16687,14 @@ var Footer = function Footer(props) {
           { as: 'a',
             onClick: function onClick() {
               history.push('/contact');
-            }
-          },
+            } },
           'Contact Us'
         ),
         _react2.default.createElement(
           _semanticUiReact.List.Item,
-          { as: 'a', href: 'https://www.crossref.org/truths/' },
-          'Crossref'
+          { as: 'a',
+            href: 'https://www.crossref.org/truths/' },
+          'Learn about Crossref'
         )
       )
     )
@@ -50820,6 +50828,8 @@ var _footer = __webpack_require__(267);
 
 var _footer2 = _interopRequireDefault(_footer);
 
+var _index = __webpack_require__(188);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -50860,48 +50870,7 @@ var Home = function (_React$Component) {
             style: { minHeight: 700, padding: '1em 0em' },
             vertical: true
           },
-          _react2.default.createElement(
-            _semanticUiReact.Container,
-            null,
-            _react2.default.createElement(
-              _semanticUiReact.Menu,
-              { inverted: true, pointing: true, secondary: true, size: 'large' },
-              _react2.default.createElement(
-                _semanticUiReact.Menu.Item,
-                { as: 'a', active: true },
-                'Home'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Menu.Item,
-                { as: 'a' },
-                'Work'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Menu.Item,
-                { as: 'a' },
-                'Company'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Menu.Item,
-                { as: 'a' },
-                'Careers'
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Menu.Item,
-                { position: 'right' },
-                _react2.default.createElement(
-                  _semanticUiReact.Button,
-                  { as: 'a', inverted: true },
-                  'Log in'
-                ),
-                _react2.default.createElement(
-                  _semanticUiReact.Button,
-                  { as: 'a', inverted: true, style: { marginLeft: '0.5em' } },
-                  'Sign Up'
-                )
-              )
-            )
-          ),
+          _react2.default.createElement(_index.TopNav, { invert: true, history: this.props.history }),
           _react2.default.createElement(
             _semanticUiReact.Container,
             { text: true },
@@ -70265,6 +70234,8 @@ var _semanticUiReact = __webpack_require__(74);
 
 var _sources = __webpack_require__(166);
 
+var _index = __webpack_require__(188);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -70332,37 +70303,31 @@ var Search = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                this.props.research.sources.length ? _react2.default.createElement(_list2.default, null) : _react2.default.createElement(
+                _react2.default.createElement(_index.TopNav, { invert: false, history: this.props.history }),
+                _react2.default.createElement(
                     'div',
-                    { id: 'tag-container' },
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement(_reactTagInput.WithContext, { tags: tags,
-                        suggestions: suggestions,
-                        handleDelete: this.handleDelete,
-                        handleAddition: this.handleAddition,
-                        handleDrag: this.handleDrag }),
-                    _react2.default.createElement('br', null),
-                    _react2.default.createElement(
-                        _semanticUiReact.Button,
-                        {
-                            primary: true,
-                            id: 'find-research-btn',
-                            onClick: function onClick() {
-                                _this2.props.fetchResearch(_this2.state.tags);
-                            },
-                            disabled: !this.state.tags.length },
-                        'Search'
-                    ),
-                    this.state.tags.length ? '' : _react2.default.createElement(
+                    { id: 'search-container' },
+                    this.props.research.sources.length ? _react2.default.createElement(_list2.default, null) : _react2.default.createElement(
                         'div',
-                        null,
+                        { id: 'tag-container' },
+                        _react2.default.createElement('br', null),
+                        _react2.default.createElement(_reactTagInput.WithContext, { tags: tags,
+                            suggestions: suggestions,
+                            handleDelete: this.handleDelete,
+                            handleAddition: this.handleAddition,
+                            handleDrag: this.handleDrag }),
                         _react2.default.createElement('br', null),
                         _react2.default.createElement(
-                            'h1',
-                            null,
-                            'Get Started. Add some tags above!'
-                        ),
-                        _react2.default.createElement('br', null)
+                            _semanticUiReact.Button,
+                            {
+                                primary: true,
+                                id: 'find-research-btn',
+                                onClick: function onClick() {
+                                    _this2.props.fetchResearch(_this2.state.tags);
+                                },
+                                disabled: !this.state.tags.length },
+                            'Search'
+                        )
                     )
                 ),
                 _react2.default.createElement(_footer2.default, { history: this.props.history })
@@ -75699,6 +75664,7 @@ var Contact = function (_Component) {
       return _react2.default.createElement(
         'div',
         null,
+        _react2.default.createElement(_index.TopNav, { invert: false, history: this.props.history }),
         _react2.default.createElement(
           'div',
           { id: 'header-container' },
@@ -75717,8 +75683,8 @@ var Contact = function (_Component) {
             _react2.default.createElement(
               _semanticUiReact.Form.Group,
               { widths: 'equal' },
-              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Name', placeholder: 'First name' }),
-              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Email', placeholder: 'Last name' })
+              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Name', placeholder: 'Your name here' }),
+              _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Email', placeholder: 'Email we can respond to' })
             ),
             _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'Message', placeholder: 'Type your message here...' }),
             _react2.default.createElement(
@@ -75778,7 +75744,7 @@ exports = module.exports = __webpack_require__(1056)(undefined);
 
 
 // module
-exports.push([module.i, "#header-container {\n  display: flex;\n  align-items: center;\n  flex-direction: column; }\n\n#contact-header {\n  font-family: Courier NEW, Courier, monospace;\n  margin-top: 20px;\n  padding: 7px 70px 7px 70px;\n  border-style: solid; }\n\n#contact-form-container {\n  padding: 150px; }\n\n#home-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n#home-search-btn {\n  width: 30%;\n  margin-top: 20px; }\n\n#tag-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n#find-research-btn {\n  justify-content: center;\n  width: 20%; }\n\n/* Example Styles for React Tags*/\ndiv.ReactTags__tags {\n  position: center; }\n\n/* Styles for the input */\ndiv.ReactTags__tagInput {\n  width: 200px;\n  border-radius: 2px;\n  display: inline-block; }\n\ndiv.ReactTags__tagInput input.ReactTags__tagInputField,\ndiv.ReactTags__tagInput input.ReactTags__tagInputField:focus {\n  height: 31px;\n  margin: 0;\n  font-size: 12px;\n  width: 100%;\n  border: 1px solid #eee; }\n\n/* Styles for selected tags */\ndiv.ReactTags__selected span.ReactTags__tag {\n  border: 1px solid #ddd;\n  background: #eee;\n  font-size: 12px;\n  display: inline-block;\n  padding: 5px;\n  margin: 0 5px;\n  cursor: move;\n  border-radius: 2px; }\n\ndiv.ReactTags__selected a.ReactTags__remove {\n  color: #aaa;\n  margin-left: 5px;\n  cursor: pointer; }\n\n/* Styles for suggestions */\ndiv.ReactTags__suggestions {\n  position: absolute; }\n\ndiv.ReactTags__suggestions ul {\n  list-style-type: none;\n  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);\n  background: white;\n  width: 200px; }\n\ndiv.ReactTags__suggestions li {\n  border-bottom: 1px solid #ddd;\n  padding: 5px 10px;\n  margin: 0; }\n\ndiv.ReactTags__suggestions li mark {\n  text-decoration: underline;\n  background: none;\n  font-weight: 600; }\n\ndiv.ReactTags__suggestions ul li.ReactTags__activeSuggestion {\n  background: #b7cfe0;\n  cursor: pointer; }\n", ""]);
+exports.push([module.i, "#search-container {\n  margin-bottom: 550px; }\n\n#header-container {\n  display: flex;\n  align-items: center;\n  flex-direction: column; }\n\n#contact-header {\n  font-family: Courier NEW, Courier, monospace;\n  margin-top: 50px;\n  padding: 7px 70px 7px 70px;\n  border-style: solid; }\n\n#contact-form-container {\n  padding: 150px;\n  padding-bottom: 200px; }\n\n#home-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n#home-search-btn {\n  width: 30%;\n  margin-top: 20px; }\n\n#tag-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n#find-research-btn {\n  justify-content: center;\n  width: 20%; }\n\n/* Example Styles for React Tags*/\ndiv.ReactTags__tags {\n  position: center; }\n\n/* Styles for the input */\ndiv.ReactTags__tagInput {\n  width: 200px;\n  border-radius: 2px;\n  display: inline-block; }\n\ndiv.ReactTags__tagInput input.ReactTags__tagInputField,\ndiv.ReactTags__tagInput input.ReactTags__tagInputField:focus {\n  height: 31px;\n  margin: 0;\n  font-size: 12px;\n  width: 100%;\n  border: 1px solid #eee; }\n\n/* Styles for selected tags */\ndiv.ReactTags__selected span.ReactTags__tag {\n  border: 1px solid #dddddd;\n  background: #eee;\n  font-size: 20px;\n  font-family: Georgia, serif;\n  display: flex;\n  justify-content: center;\n  padding: 5px;\n  margin: 5px;\n  cursor: move;\n  border-radius: 2px; }\n\ndiv.ReactTags__selected a.ReactTags__remove {\n  color: #aaa;\n  margin-left: 5px;\n  cursor: pointer; }\n\n/* Styles for suggestions */\ndiv.ReactTags__suggestions {\n  position: absolute; }\n\ndiv.ReactTags__suggestions ul {\n  list-style-type: none;\n  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);\n  background: white;\n  width: 200px; }\n\ndiv.ReactTags__suggestions li {\n  border-bottom: 1px solid #ddd;\n  padding: 5px 10px;\n  margin: 0; }\n\ndiv.ReactTags__suggestions li mark {\n  text-decoration: underline;\n  background: none;\n  font-weight: 600; }\n\ndiv.ReactTags__suggestions ul li.ReactTags__activeSuggestion {\n  background: #b7cfe0;\n  cursor: pointer; }\n", ""]);
 
 // exports
 
@@ -76318,6 +76284,103 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 1059 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(74);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var TopNav = function TopNav(props) {
+
+  var invert = props.invert;
+  var location = props.history.location.pathname;
+
+  return invert === true ? _react2.default.createElement(
+    _semanticUiReact.Container,
+    null,
+    _react2.default.createElement(
+      _semanticUiReact.Menu,
+      { inverted: true, pointing: true, secondary: true, size: 'large' },
+      _react2.default.createElement(
+        _semanticUiReact.Menu.Item,
+        { as: 'a',
+          active: location === '/',
+          onClick: function onClick() {
+            props.history.push('/');
+          } },
+        'Home'
+      ),
+      _react2.default.createElement(
+        _semanticUiReact.Menu.Item,
+        { as: 'a',
+          active: location === '/search',
+          onClick: function onClick() {
+            props.history.push('/search');
+          } },
+        'Search'
+      ),
+      _react2.default.createElement(
+        _semanticUiReact.Menu.Item,
+        { as: 'a',
+          active: location === '/contact',
+          onClick: function onClick() {
+            props.history.push('/contact');
+          } },
+        'Contact'
+      )
+    )
+  ) : _react2.default.createElement(
+    _semanticUiReact.Container,
+    null,
+    _react2.default.createElement(
+      _semanticUiReact.Menu,
+      { pointing: true, secondary: true, size: 'large' },
+      _react2.default.createElement(
+        _semanticUiReact.Menu.Item,
+        { as: 'a',
+          active: location === '/',
+          onClick: function onClick() {
+            props.history.push('/');
+          } },
+        'Home'
+      ),
+      _react2.default.createElement(
+        _semanticUiReact.Menu.Item,
+        { as: 'a',
+          active: location === '/search',
+          onClick: function onClick() {
+            props.history.push('/search');
+          } },
+        'Search'
+      ),
+      _react2.default.createElement(
+        _semanticUiReact.Menu.Item,
+        { as: 'a',
+          active: location === '/contact',
+          onClick: function onClick() {
+            props.history.push('/contact');
+          } },
+        'Contact'
+      )
+    )
+  );
+};
+
+exports.default = TopNav;
 
 /***/ })
 /******/ ]);

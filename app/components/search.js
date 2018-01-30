@@ -5,6 +5,7 @@ import List from './list'
 import { connect } from 'react-redux'
 import { Button } from 'semantic-ui-react'
 import { fetchResearch } from '../reducers/sources.jsx'
+import { TopNav } from './index'
 
 
 class Search extends React.Component {
@@ -50,13 +51,15 @@ class Search extends React.Component {
   render() {
       const { tags, suggestions } = this.state;
       return (
-          <div>
-              {
-               this.props.research.sources.length ?
-               <List />
-               :
-               (
-               <div id="tag-container">
+        <div>
+          <TopNav invert={false} history={this.props.history} />
+          <div id="search-container">
+            {
+            this.props.research.sources.length ?
+            <List />
+            :
+            (
+            <div id="tag-container">
                 <br />
                 <ReactTags tags={tags}
                     suggestions={suggestions}
@@ -66,27 +69,18 @@ class Search extends React.Component {
                 <br />
 
                 <Button
-                 primary
-                 id="find-research-btn"
-                 onClick={ () => {this.props.fetchResearch(this.state.tags)}}
-                 disabled={!this.state.tags.length}>
-                 Search
+                primary
+                id="find-research-btn"
+                onClick={ () => {this.props.fetchResearch(this.state.tags)}}
+                disabled={!this.state.tags.length}>
+                Search
                 </Button>
-                {
-                this.state.tags.length ? ''
-                :
-                <div>
-                    <br />
-                    <h1>Get Started. Add some tags above!</h1>
-                    <br />
-                </div>
-                }
-                </div>
-               )
-              }
-
-              <Footer history={this.props.history} />
+            </div>
+            )
+            }
           </div>
+         <Footer history={this.props.history} />
+        </div>
       )
   }
 }

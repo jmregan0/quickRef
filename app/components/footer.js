@@ -14,17 +14,26 @@ const Footer = (props) => {
           vertical
         >
           <Container textAlign='center'>
-            <Header inverted as='h4' content='Contact info below' />
-            <Divider inverted section />
+            {/* <Header inverted as='h4' content='Contact info below' />
+            <Divider inverted section /> */}
             {/* <Image src='/logo.png' centered size='mini' /> */}
             <List horizontal inverted divided link>
-              <List.Item as='a' href='https://github.com/jmregan0/quickRef'>Github</List.Item>
+
               <List.Item as='a'
-               onClick={ () => { history.push('/contact') } }
-               >
+                href='https://github.com/jmregan0/quickRef'>
+                Github
+              </List.Item>
+
+              <List.Item as='a'
+               onClick={ () => { history.push('/contact') } }>
                Contact Us
               </List.Item>
-              <List.Item as='a' href='https://www.crossref.org/truths/'>Crossref</List.Item>
+
+              <List.Item as='a'
+               href='https://www.crossref.org/truths/'>
+               Learn about Crossref
+              </List.Item>
+
             </List>
           </Container>
         </Segment>

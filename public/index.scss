@@ -1,4 +1,8 @@
 
+#search-container {
+  margin-bottom: 550px;
+}
+
 #header-container {
   display: flex;
   align-items: center;
@@ -7,13 +11,14 @@
 
 #contact-header {
   font-family: Courier NEW, Courier, monospace;
-  margin-top: 20px;
+  margin-top: 50px;
   padding: 7px 70px 7px 70px;
   border-style: solid
 }
 
 #contact-form-container {
   padding: 150px;
+  padding-bottom: 200px
 }
 
 #home-container {
@@ -59,12 +64,14 @@ div.ReactTags__tagInput input.ReactTags__tagInputField:focus {
 
 /* Styles for selected tags */
 div.ReactTags__selected span.ReactTags__tag {
-  border: 1px solid #ddd;
+  border: 1px solid rgb(221, 221, 221);
   background: #eee;
-  font-size: 12px;
-  display: inline-block;
+  font-size: 20px;
+  font-family: Georgia, serif;
+  display: flex;
+  justify-content: center;
   padding: 5px;
-  margin: 0 5px;
+  margin: 5px;
   cursor: move;
   border-radius: 2px;
 }

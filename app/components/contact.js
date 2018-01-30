@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Form } from 'semantic-ui-react'
-import { Footer } from './index'
+import { Footer, TopNav } from './index'
 
 class Contact extends Component {
   constructor(props){
@@ -16,14 +16,18 @@ class Contact extends Component {
   render (){
     return (
     <div>
+
+      <TopNav invert={false} history={this.props.history} />
+
       <div id="header-container">
         <h1 id="contact-header">Thanks for leaving feedback!</h1>
       </div>
+
       <div id="contact-form-container">
       <Form>
         <Form.Group widths='equal'>
-          <Form.Input fluid label='Name' placeholder='First name' />
-          <Form.Input fluid label='Email' placeholder='Last name' />
+          <Form.Input fluid label='Name' placeholder='Your name here' />
+          <Form.Input fluid label='Email' placeholder='Email we can respond to' />
         </Form.Group>
         <Form.TextArea label='Message' placeholder='Type your message here...' />
         <Form.Button primary>Submit</Form.Button>
