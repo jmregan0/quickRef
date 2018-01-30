@@ -35,7 +35,6 @@ var query = '';
     }
   })
   .then(info => {
-    // console.log('info', info.data)
     res.send(info.data.message.items).status(200)
   })
   .catch(err => console.error(err))

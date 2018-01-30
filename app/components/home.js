@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  Container, Header, Button
+  Container, Header, Button, Menu, Segment, Icon
 } from 'semantic-ui-react'
 import { Link } from 'react-router-dom'
 import Footer from './footer'
@@ -21,10 +21,53 @@ export default class Home extends React.Component {
 
     return (
       <div>
+        <Segment
+            inverted
+            textAlign='center'
+            style={{ minHeight: 700, padding: '1em 0em' }}
+            vertical
+          >
+            <Container>
+              <Menu inverted pointing secondary size='large'>
+                <Menu.Item as='a' active>Home</Menu.Item>
+                <Menu.Item as='a'>Work</Menu.Item>
+                <Menu.Item as='a'>Company</Menu.Item>
+                <Menu.Item as='a'>Careers</Menu.Item>
+                <Menu.Item position='right'>
+                  <Button as='a' inverted>Log in</Button>
+                  <Button as='a' inverted style={{ marginLeft: '0.5em' }}>Sign Up</Button>
+                </Menu.Item>
+              </Menu>
+            </Container>
+
+            <Container text>
+              <Header
+                as='h1'
+                content='QuickSource'
+                inverted
+                style={{ fontSize: '4em', fontWeight: 'normal', marginBottom: 0, marginTop: '3em' }}
+              />
+              <Header
+                as='h2'
+                content='Fast references for your research'
+                inverted
+                style={{ fontSize: '1.7em', fontWeight: 'normal' }}
+              />
+              <Button
+                primary
+                size='huge'
+                onClick = {() => this.props.history.push('search')}
+                >
+                Get Started
+                <Icon name='right arrow' />
+              </Button>
+
+            </Container>
+          </Segment>
         <div id="home-container">
-          <Container text style={{ marginTop: '2em' }}>
-            <Header as='h1'>QuickSource Research Tool</Header>
-          </Container>
+          {/* <Container text style={{ marginTop: '2em' }}>
+            <Header as='h1'>What is QuickSource?</Header>
+          </Container> */}
 
           <Container text>
             <p style={{marginTop: '2em'}}>
@@ -44,7 +87,7 @@ export default class Home extends React.Component {
             </p>
           </Container>
 
-          <Button id="home-search-btn" primary onClick = {() => this.props.history.push('search')}>Get Started</Button>
+          {/* <Button id="home-search-btn" primary onClick = {() => this.props.history.push('search')}>Get Started</Button> */}
         </div>
         <Footer history={this.props.history} />
       </div>

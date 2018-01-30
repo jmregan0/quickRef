@@ -19,22 +19,4 @@ class Routes extends Component {
   }
 }
 
-/**
- * CONTAINER
- */
-// const mapState = (state) => {
-//   return {
-
-//   }
-// }
-
-// const mapDispatch = (dispatch) => {
-//   return {
-
-//   }
-// }
-
-// export default connect(mapState, mapDispatch)(Routes)
-
-
 export default Routes

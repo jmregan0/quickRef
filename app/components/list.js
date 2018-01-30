@@ -18,8 +18,6 @@ class List extends Component {
       userEmail: '',
       dropdown: 'selected'
     }
-    // this.handleClick = this.handleClick.bind(this)
-    // this.updateSelection = props.updateSelection;
   }
 
   handleClick(index) {
@@ -57,7 +55,6 @@ class List extends Component {
     .then(result => {
       console.log(result)
     })
-    // console.log(selections)
   }
 
   sendSources(whichOnes) {
@@ -76,7 +73,7 @@ class List extends Component {
       <Table celled compact definition>
       <Table.Header fullWidth>
         <Table.Row>
-          <Table.HeaderCell />
+          <Table.HeaderCell>Select</Table.HeaderCell>
           <Table.HeaderCell />
           <Table.HeaderCell>Data Type</Table.HeaderCell>
           <Table.HeaderCell>Title</Table.HeaderCell>
@@ -100,24 +97,11 @@ class List extends Component {
                 <Table.Cell>{element.type}</Table.Cell>
                 <Table.Cell>
                   {
-                  // element.title[0].length > 80 ?
-                  // element.title[0].slice(0, 80) + '...'
-                  // :
-                  // element.title
                   <Modal item={element} />
                   }
                 </Table.Cell>
                 <Table.Cell>{element['container-title']}</Table.Cell>
-                {/* <Table.Cell>
-                {
-                  element.author ?
-                  element.author[0].given
-                  + ' ' +
-                  element.author[0].family
-                  :
-                  'not listed'
-                }
-                </Table.Cell> */}
+
                 <Table.Cell>{element.publisher}</Table.Cell>
               </Table.Row>
             )
