@@ -41,7 +41,7 @@ class ModalComponent extends Component {
               <Header>{this.props.item.title}</Header>
               {
                 this.props.item.abstract ?
-                <p>{this.props.item.abstract}</p>
+                <p>{this.props.item.abstract.slice(0, 500) + '...'}</p>
                 :
                 'placeholder'
               }

@@ -16584,8 +16584,9 @@ var _semanticUiReact = __webpack_require__(114);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var Footer = function Footer() {
+var Footer = function Footer(props) {
 
+  var history = props.history;
   return _react2.default.createElement(
     _semanticUiReact.Segment,
     {
@@ -16596,8 +16597,6 @@ var Footer = function Footer() {
     _react2.default.createElement(
       _semanticUiReact.Container,
       { textAlign: 'center' },
-      _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Questions?' }),
-      _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Wanna see the Code?' }),
       _react2.default.createElement(_semanticUiReact.Header, { inverted: true, as: 'h4', content: 'Contact info below' }),
       _react2.default.createElement(_semanticUiReact.Divider, { inverted: true, section: true }),
       _react2.default.createElement(
@@ -16605,23 +16604,22 @@ var Footer = function Footer() {
         { horizontal: true, inverted: true, divided: true, link: true },
         _react2.default.createElement(
           _semanticUiReact.List.Item,
-          { as: 'a', href: '#' },
-          'Site Map'
+          { as: 'a', href: 'https://github.com/jmregan0/quickRef' },
+          'Github'
         ),
         _react2.default.createElement(
           _semanticUiReact.List.Item,
-          { as: 'a', href: '#' },
+          { as: 'a',
+            onClick: function onClick() {
+              history.push('/contact');
+            }
+          },
           'Contact Us'
         ),
         _react2.default.createElement(
           _semanticUiReact.List.Item,
-          { as: 'a', href: '#' },
-          'Terms and Conditions'
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.List.Item,
-          { as: 'a', href: '#' },
-          'Privacy Policy'
+          { as: 'a', href: 'https://www.crossref.org/truths/' },
+          'Crossref'
         )
       )
     )
@@ -21959,6 +21957,15 @@ Object.defineProperty(exports, 'Modal', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_modal).default;
+  }
+});
+
+var _contact = __webpack_require__(1058);
+
+Object.defineProperty(exports, 'Contact', {
+  enumerable: true,
+  get: function get() {
+    return _interopRequireDefault(_contact).default;
   }
 });
 
@@ -48581,7 +48588,8 @@ var Routes = function (_Component) {
           _reactRouterDom.Switch,
           null,
           _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _components.Home }),
-          _react2.default.createElement(_reactRouterDom.Route, { path: '/search', component: _components.Search })
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/search', component: _components.Search }),
+          _react2.default.createElement(_reactRouterDom.Route, { path: '/contact', component: _components.Contact })
         )
       );
     }
@@ -50866,47 +50874,51 @@ var Home = function (_React$Component) {
         'div',
         null,
         _react2.default.createElement(
-          _semanticUiReact.Container,
-          { text: true, style: { marginTop: '2em' } },
+          'div',
+          { id: 'home-container' },
           _react2.default.createElement(
-            _semanticUiReact.Header,
-            { as: 'h1' },
-            'QuickSource Research Tool'
-          )
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Container,
-          { text: true },
-          _react2.default.createElement(
-            'p',
-            { style: { marginTop: '2em' } },
-            'This is a tool to help in research. Googling resources is great. But sometimes that can be many clicks away from narrowing into the actual published research you need to add to that bibliography. This tool is designed to get right at the data you need.'
-          ),
-          _react2.default.createElement(
-            'p',
-            null,
-            'This web application leverages the CrossRef database which was made by some awesome people you should definitely check out ',
+            _semanticUiReact.Container,
+            { text: true, style: { marginTop: '2em' } },
             _react2.default.createElement(
-              'a',
-              { href: 'https://www.youtube.com/watch?v=L0GOa859dZk' },
-              'here'
-            ),
-            '. In a nutshell they have constructed a database that references academic research by Digital Object Identifiers (DOI tags). These tags follow academic writing wherever it travels around the web. The internet is awesome, but one thing that is not so awesome is how links can expire and instead of getting the web page you expected, you sometimes get that notorious 404 - Not Found.'
+              _semanticUiReact.Header,
+              { as: 'h1' },
+              'QuickSource Research Tool'
+            )
           ),
           _react2.default.createElement(
-            'p',
-            null,
-            'The cool thing is that you can search multiple topics at once and find research that matches one or many of your topics.'
+            _semanticUiReact.Container,
+            { text: true },
+            _react2.default.createElement(
+              'p',
+              { style: { marginTop: '2em' } },
+              'This is a tool to help in research. Googling resources is great. But sometimes that can be many clicks away from narrowing into the actual published research you need to add to that bibliography. This tool is designed to get right at the data you need.'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'This web application leverages the CrossRef database which was made by some awesome people you should definitely check out ',
+              _react2.default.createElement(
+                'a',
+                { href: 'https://www.youtube.com/watch?v=L0GOa859dZk' },
+                'here'
+              ),
+              '. In a nutshell they have constructed a database that references academic research by Digital Object Identifiers (DOI tags). These tags follow academic writing wherever it travels around the web. The internet is awesome, but one thing that is not so awesome is how links can expire and instead of getting the web page you expected, you sometimes get that notorious 404 - Not Found.'
+            ),
+            _react2.default.createElement(
+              'p',
+              null,
+              'The cool thing is that you can search multiple topics at once and find research that matches one or many of your topics.'
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Button,
+            { id: 'home-search-btn', primary: true, onClick: function onClick() {
+                return _this2.props.history.push('search');
+              } },
+            'Get Started'
           )
         ),
-        _react2.default.createElement(
-          _semanticUiReact.Button,
-          { fluid: true, onClick: function onClick() {
-              return _this2.props.history.push('search');
-            } },
-          'Get Started'
-        ),
-        _react2.default.createElement(_footer2.default, null)
+        _react2.default.createElement(_footer2.default, { history: this.props.history })
       );
     }
   }]);
@@ -70207,6 +70219,8 @@ var _list2 = _interopRequireDefault(_list);
 
 var _reactRedux = __webpack_require__(160);
 
+var _semanticUiReact = __webpack_require__(114);
+
 var _sources = __webpack_require__(166);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -70232,7 +70246,6 @@ var Search = function (_React$Component) {
         _this.handleDelete = _this.handleDelete.bind(_this);
         _this.handleAddition = _this.handleAddition.bind(_this);
         _this.handleDrag = _this.handleDrag.bind(_this);
-        //   this.submitQuery = this.submitQuery.bind(this);
         return _this;
     }
 
@@ -70265,19 +70278,6 @@ var Search = function (_React$Component) {
             // re-render
             this.setState({ tags: tags });
         }
-
-        //   submitQuery() {
-        //     axios.post('api/research', {
-        //       tags: this.state.tags
-        //     })
-        //     .then(res => {
-        //       console.log(res)
-        //       this.setState({
-        //         research: res.data
-        //       })
-        //     })
-        //   }
-
     }, {
         key: 'render',
         value: function render() {
@@ -70292,7 +70292,7 @@ var Search = function (_React$Component) {
                 null,
                 this.props.research.sources.length ? _react2.default.createElement(_list2.default, null) : _react2.default.createElement(
                     'div',
-                    null,
+                    { id: 'tag-container' },
                     _react2.default.createElement('br', null),
                     _react2.default.createElement(_reactTagInput.WithContext, { tags: tags,
                         suggestions: suggestions,
@@ -70301,13 +70301,17 @@ var Search = function (_React$Component) {
                         handleDrag: this.handleDrag }),
                     _react2.default.createElement('br', null),
                     _react2.default.createElement(
-                        'button',
-                        { onClick: function onClick() {
+                        _semanticUiReact.Button,
+                        {
+                            primary: true,
+                            id: 'find-research-btn',
+                            onClick: function onClick() {
                                 _this2.props.fetchResearch(_this2.state.tags);
-                            }, disabled: !this.state.tags.length },
-                        'Button'
+                            },
+                            disabled: !this.state.tags.length },
+                        'Search'
                     ),
-                    _react2.default.createElement(
+                    this.state.tags.length ? '' : _react2.default.createElement(
                         'div',
                         null,
                         _react2.default.createElement('br', null),
@@ -70319,7 +70323,7 @@ var Search = function (_React$Component) {
                         _react2.default.createElement('br', null)
                     )
                 ),
-                _react2.default.createElement(_footer2.default, null)
+                _react2.default.createElement(_footer2.default, { history: this.props.history })
             );
         }
     }]);
@@ -75570,7 +75574,7 @@ var ModalComponent = function (_Component) {
               this.props.item.abstract ? _react2.default.createElement(
                 'p',
                 null,
-                this.props.item.abstract
+                this.props.item.abstract.slice(0, 500) + '...'
               ) : 'placeholder'
             ),
             _react2.default.createElement(
@@ -75614,7 +75618,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(1056)(content, options);
+var update = __webpack_require__(1055)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -75634,100 +75638,18 @@ if(false) {
 /* 1054 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1055)(undefined);
+exports = module.exports = __webpack_require__(1057)(undefined);
 // imports
 
 
 // module
-exports.push([module.i, "/* Example Styles for React Tags*/\ndiv.ReactTags__tags {\n  position: relative; }\n\n/* Styles for the input */\ndiv.ReactTags__tagInput {\n  width: 200px;\n  border-radius: 2px;\n  display: inline-block; }\n\ndiv.ReactTags__tagInput input.ReactTags__tagInputField,\ndiv.ReactTags__tagInput input.ReactTags__tagInputField:focus {\n  height: 31px;\n  margin: 0;\n  font-size: 12px;\n  width: 100%;\n  border: 1px solid #eee; }\n\n/* Styles for selected tags */\ndiv.ReactTags__selected span.ReactTags__tag {\n  border: 1px solid #ddd;\n  background: #eee;\n  font-size: 12px;\n  display: inline-block;\n  padding: 5px;\n  margin: 0 5px;\n  cursor: move;\n  border-radius: 2px; }\n\ndiv.ReactTags__selected a.ReactTags__remove {\n  color: #aaa;\n  margin-left: 5px;\n  cursor: pointer; }\n\n/* Styles for suggestions */\ndiv.ReactTags__suggestions {\n  position: absolute; }\n\ndiv.ReactTags__suggestions ul {\n  list-style-type: none;\n  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);\n  background: white;\n  width: 200px; }\n\ndiv.ReactTags__suggestions li {\n  border-bottom: 1px solid #ddd;\n  padding: 5px 10px;\n  margin: 0; }\n\ndiv.ReactTags__suggestions li mark {\n  text-decoration: underline;\n  background: none;\n  font-weight: 600; }\n\ndiv.ReactTags__suggestions ul li.ReactTags__activeSuggestion {\n  background: #b7cfe0;\n  cursor: pointer; }\n", ""]);
+exports.push([module.i, "#home-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n#home-search-btn {\n  width: 30%;\n  margin-top: 20px; }\n\n#tag-container {\n  display: flex;\n  flex-direction: column;\n  align-items: center; }\n\n#find-research-btn {\n  justify-content: center;\n  width: 20%; }\n\n/* Example Styles for React Tags*/\ndiv.ReactTags__tags {\n  position: center; }\n\n/* Styles for the input */\ndiv.ReactTags__tagInput {\n  width: 200px;\n  border-radius: 2px;\n  display: inline-block; }\n\ndiv.ReactTags__tagInput input.ReactTags__tagInputField,\ndiv.ReactTags__tagInput input.ReactTags__tagInputField:focus {\n  height: 31px;\n  margin: 0;\n  font-size: 12px;\n  width: 100%;\n  border: 1px solid #eee; }\n\n/* Styles for selected tags */\ndiv.ReactTags__selected span.ReactTags__tag {\n  border: 1px solid #ddd;\n  background: #eee;\n  font-size: 12px;\n  display: inline-block;\n  padding: 5px;\n  margin: 0 5px;\n  cursor: move;\n  border-radius: 2px; }\n\ndiv.ReactTags__selected a.ReactTags__remove {\n  color: #aaa;\n  margin-left: 5px;\n  cursor: pointer; }\n\n/* Styles for suggestions */\ndiv.ReactTags__suggestions {\n  position: absolute; }\n\ndiv.ReactTags__suggestions ul {\n  list-style-type: none;\n  box-shadow: 0.05em 0.01em 0.5em rgba(0, 0, 0, 0.2);\n  background: white;\n  width: 200px; }\n\ndiv.ReactTags__suggestions li {\n  border-bottom: 1px solid #ddd;\n  padding: 5px 10px;\n  margin: 0; }\n\ndiv.ReactTags__suggestions li mark {\n  text-decoration: underline;\n  background: none;\n  font-weight: 600; }\n\ndiv.ReactTags__suggestions ul li.ReactTags__activeSuggestion {\n  background: #b7cfe0;\n  cursor: pointer; }\n", ""]);
 
 // exports
 
 
 /***/ }),
 /* 1055 */
-/***/ (function(module, exports) {
-
-/*
-	MIT License http://www.opensource.org/licenses/mit-license.php
-	Author Tobias Koppers @sokra
-*/
-// css base code, injected by the css-loader
-module.exports = function(useSourceMap) {
-	var list = [];
-
-	// return the list of modules as css string
-	list.toString = function toString() {
-		return this.map(function (item) {
-			var content = cssWithMappingToString(item, useSourceMap);
-			if(item[2]) {
-				return "@media " + item[2] + "{" + content + "}";
-			} else {
-				return content;
-			}
-		}).join("");
-	};
-
-	// import a list of modules into the list
-	list.i = function(modules, mediaQuery) {
-		if(typeof modules === "string")
-			modules = [[null, modules, ""]];
-		var alreadyImportedModules = {};
-		for(var i = 0; i < this.length; i++) {
-			var id = this[i][0];
-			if(typeof id === "number")
-				alreadyImportedModules[id] = true;
-		}
-		for(i = 0; i < modules.length; i++) {
-			var item = modules[i];
-			// skip already imported module
-			// this implementation is not 100% perfect for weird media query combinations
-			//  when a module is imported multiple times with different media queries.
-			//  I hope this will never occur (Hey this way we have smaller bundles)
-			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-				if(mediaQuery && !item[2]) {
-					item[2] = mediaQuery;
-				} else if(mediaQuery) {
-					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-				}
-				list.push(item);
-			}
-		}
-	};
-	return list;
-};
-
-function cssWithMappingToString(item, useSourceMap) {
-	var content = item[1] || '';
-	var cssMapping = item[3];
-	if (!cssMapping) {
-		return content;
-	}
-
-	if (useSourceMap && typeof btoa === 'function') {
-		var sourceMapping = toComment(cssMapping);
-		var sourceURLs = cssMapping.sources.map(function (source) {
-			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
-		});
-
-		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
-	}
-
-	return [content].join('\n');
-}
-
-// Adapted from convert-source-map (MIT)
-function toComment(sourceMap) {
-	// eslint-disable-next-line no-undef
-	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
-	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
-
-	return '/*# ' + data + ' */';
-}
-
-
-/***/ }),
-/* 1056 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -75773,7 +75695,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(1057);
+var	fixUrls = __webpack_require__(1056);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -76086,7 +76008,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 1057 */
+/* 1056 */
 /***/ (function(module, exports) {
 
 
@@ -76179,6 +76101,165 @@ module.exports = function (css) {
 	return fixedCss;
 };
 
+
+/***/ }),
+/* 1057 */
+/***/ (function(module, exports) {
+
+/*
+	MIT License http://www.opensource.org/licenses/mit-license.php
+	Author Tobias Koppers @sokra
+*/
+// css base code, injected by the css-loader
+module.exports = function(useSourceMap) {
+	var list = [];
+
+	// return the list of modules as css string
+	list.toString = function toString() {
+		return this.map(function (item) {
+			var content = cssWithMappingToString(item, useSourceMap);
+			if(item[2]) {
+				return "@media " + item[2] + "{" + content + "}";
+			} else {
+				return content;
+			}
+		}).join("");
+	};
+
+	// import a list of modules into the list
+	list.i = function(modules, mediaQuery) {
+		if(typeof modules === "string")
+			modules = [[null, modules, ""]];
+		var alreadyImportedModules = {};
+		for(var i = 0; i < this.length; i++) {
+			var id = this[i][0];
+			if(typeof id === "number")
+				alreadyImportedModules[id] = true;
+		}
+		for(i = 0; i < modules.length; i++) {
+			var item = modules[i];
+			// skip already imported module
+			// this implementation is not 100% perfect for weird media query combinations
+			//  when a module is imported multiple times with different media queries.
+			//  I hope this will never occur (Hey this way we have smaller bundles)
+			if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+				if(mediaQuery && !item[2]) {
+					item[2] = mediaQuery;
+				} else if(mediaQuery) {
+					item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+				}
+				list.push(item);
+			}
+		}
+	};
+	return list;
+};
+
+function cssWithMappingToString(item, useSourceMap) {
+	var content = item[1] || '';
+	var cssMapping = item[3];
+	if (!cssMapping) {
+		return content;
+	}
+
+	if (useSourceMap && typeof btoa === 'function') {
+		var sourceMapping = toComment(cssMapping);
+		var sourceURLs = cssMapping.sources.map(function (source) {
+			return '/*# sourceURL=' + cssMapping.sourceRoot + source + ' */'
+		});
+
+		return [content].concat(sourceURLs).concat([sourceMapping]).join('\n');
+	}
+
+	return [content].join('\n');
+}
+
+// Adapted from convert-source-map (MIT)
+function toComment(sourceMap) {
+	// eslint-disable-next-line no-undef
+	var base64 = btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap))));
+	var data = 'sourceMappingURL=data:application/json;charset=utf-8;base64,' + base64;
+
+	return '/*# ' + data + ' */';
+}
+
+
+/***/ }),
+/* 1058 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _semanticUiReact = __webpack_require__(114);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var Contact = function (_Component) {
+  _inherits(Contact, _Component);
+
+  function Contact(props) {
+    _classCallCheck(this, Contact);
+
+    var _this = _possibleConstructorReturn(this, (Contact.__proto__ || Object.getPrototypeOf(Contact)).call(this, props));
+
+    _this.state = {
+      options: [{ key: 'm', text: 'Male', value: 'male' }, { key: 'f', text: 'Female', value: 'female' }]
+    };
+    return _this;
+  }
+
+  _createClass(Contact, [{
+    key: 'handleChange',
+    value: function handleChange(e, _ref) {
+      var value = _ref.value;
+
+      this.setState({ value: value });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      return _react2.default.createElement(
+        _semanticUiReact.Form,
+        null,
+        _react2.default.createElement(
+          _semanticUiReact.Form.Group,
+          { widths: 'equal' },
+          _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'First name', placeholder: 'First name' }),
+          _react2.default.createElement(_semanticUiReact.Form.Input, { fluid: true, label: 'Last name', placeholder: 'Last name' }),
+          _react2.default.createElement(_semanticUiReact.Form.Select, { fluid: true, label: 'Gender', options: this.state.options, placeholder: 'Gender' })
+        ),
+        _react2.default.createElement(_semanticUiReact.Form.TextArea, { label: 'About', placeholder: 'Tell us more about you...' }),
+        _react2.default.createElement(_semanticUiReact.Form.Checkbox, { label: 'I agree to the Terms and Conditions' }),
+        _react2.default.createElement(
+          _semanticUiReact.Form.Button,
+          null,
+          'Submit'
+        )
+      );
+    }
+  }]);
+
+  return Contact;
+}(_react.Component);
+
+exports.default = Contact;
 
 /***/ })
 /******/ ]);

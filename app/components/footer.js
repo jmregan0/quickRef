@@ -1,11 +1,12 @@
 import React from 'react'
 import {
-  Container, Divider, Grid, Header, Image, List, Segment,
+  Container, Divider, Header, List, Segment
 } from 'semantic-ui-react'
 
 
-const Footer = () => {
+const Footer = (props) => {
 
+  const history = props.history
   return (
     <Segment
           inverted
@@ -13,29 +14,17 @@ const Footer = () => {
           vertical
         >
           <Container textAlign='center'>
-            {/* <Grid columns={1} divided stackable inverted>
-              <Grid.Row>
-                <Grid.Column>
-                  <Header inverted as='h4' content='Group 1' />
-                  <List link inverted>
-                    <List.Item as='a'>Link One</List.Item>
-                    <List.Item as='a'>Link Two</List.Item>
-                    <List.Item as='a'>Link Three</List.Item>
-                    <List.Item as='a'>Link Four</List.Item>
-                  </List>
-                </Grid.Column>
-              </Grid.Row>
-            </Grid> */}
-            <Header inverted as='h4' content='Questions?' />
-            <Header inverted as='h4' content='Wanna see the Code?' />
             <Header inverted as='h4' content='Contact info below' />
             <Divider inverted section />
             {/* <Image src='/logo.png' centered size='mini' /> */}
             <List horizontal inverted divided link>
-              <List.Item as='a' href='#'>Site Map</List.Item>
-              <List.Item as='a' href='#'>Contact Us</List.Item>
-              <List.Item as='a' href='#'>Terms and Conditions</List.Item>
-              <List.Item as='a' href='#'>Privacy Policy</List.Item>
+              <List.Item as='a' href='https://github.com/jmregan0/quickRef'>Github</List.Item>
+              <List.Item as='a'
+               onClick={ () => { history.push('/contact') } }
+               >
+               Contact Us
+              </List.Item>
+              <List.Item as='a' href='https://www.crossref.org/truths/'>Crossref</List.Item>
             </List>
           </Container>
         </Segment>

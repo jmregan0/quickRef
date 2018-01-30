@@ -81,7 +81,6 @@ class List extends Component {
           <Table.HeaderCell>Data Type</Table.HeaderCell>
           <Table.HeaderCell>Title</Table.HeaderCell>
           <Table.HeaderCell>Collection Name</Table.HeaderCell>
-          {/* <Table.HeaderCell>Author</Table.HeaderCell> */}
           <Table.HeaderCell>Publisher</Table.HeaderCell>
         </Table.Row>
       </Table.Header>
@@ -130,16 +129,6 @@ class List extends Component {
         <Table.Row>
           <Table.HeaderCell />
           <Table.HeaderCell colSpan='4'>
-            {/* <Button
-             size='small'
-             onClick={ () => { this.sendMeStuff() } }>
-             Email Selections
-            </Button>
-            <Button
-             size='small'
-             onClick={ () => { this.sendAll('jacobmregan0@gmail.com') } }>
-             Email All
-            </Button> */}
 
             <Input
              onChange={ (e) => {this.setState({userEmail: e.target.value})} }

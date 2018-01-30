@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-import { Home, Search, Footer } from './components';
+import { Home, Search, Contact } from './components';
 
 
 class Routes extends Component {
@@ -12,6 +12,7 @@ class Routes extends Component {
           <Switch>
             <Route exact path="/" component={Home} />
             <Route path="/search" component={Search} />
+            <Route path="/contact" component={Contact} />
           </Switch>
       </BrowserRouter>
     )

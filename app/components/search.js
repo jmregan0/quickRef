@@ -3,6 +3,7 @@ import Footer from './footer'
 import { WithContext as ReactTags } from 'react-tag-input';
 import List from './list'
 import { connect } from 'react-redux'
+import { Button } from 'semantic-ui-react'
 import { fetchResearch } from '../reducers/sources.jsx'
 
 
@@ -17,7 +18,6 @@ class Search extends React.Component {
       this.handleDelete = this.handleDelete.bind(this);
       this.handleAddition = this.handleAddition.bind(this);
       this.handleDrag = this.handleDrag.bind(this);
-    //   this.submitQuery = this.submitQuery.bind(this);
   }
 
 
@@ -47,18 +47,6 @@ class Search extends React.Component {
       this.setState({ tags: tags });
   }
 
-//   submitQuery() {
-//     axios.post('api/research', {
-//       tags: this.state.tags
-//     })
-//     .then(res => {
-//       console.log(res)
-//       this.setState({
-//         research: res.data
-//       })
-//     })
-//   }
-
   render() {
       const { tags, suggestions } = this.state;
       return (
@@ -67,7 +55,8 @@ class Search extends React.Component {
                this.props.research.sources.length ?
                <List />
                :
-               <div>
+               (
+               <div id="tag-container">
                 <br />
                 <ReactTags tags={tags}
                     suggestions={suggestions}
@@ -76,17 +65,27 @@ class Search extends React.Component {
                     handleDrag={this.handleDrag} />
                 <br />
 
-                <button onClick={ () => {this.props.fetchResearch(this.state.tags)}} disabled={!this.state.tags.length}>Button</button>
-
-                    <div>
-                        <br />
-                        <h1>Get Started. Add some tags above!</h1>
-                        <br />
-                    </div>
+                <Button
+                 primary
+                 id="find-research-btn"
+                 onClick={ () => {this.props.fetchResearch(this.state.tags)}}
+                 disabled={!this.state.tags.length}>
+                 Search
+                </Button>
+                {
+                this.state.tags.length ? ''
+                :
+                <div>
+                    <br />
+                    <h1>Get Started. Add some tags above!</h1>
+                    <br />
                 </div>
+                }
+                </div>
+               )
               }
 
-              <Footer />
+              <Footer history={this.props.history} />
           </div>
       )
   }

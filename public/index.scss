@@ -1,7 +1,28 @@
 
+#home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center
+}
+
+#home-search-btn {
+  width: 30%;
+  margin-top: 20px
+}
+
+#tag-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#find-research-btn {
+  justify-content: center;
+  width: 20%;
+}
 /* Example Styles for React Tags*/
 div.ReactTags__tags {
-  position: relative;
+  position: center;
 }
 
 /* Styles for the input */
