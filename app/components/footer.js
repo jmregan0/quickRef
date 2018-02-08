@@ -8,9 +8,12 @@ const Footer = (props) => {
 
   const history = props.history
   return (
+    <div id="footer-container">
     <Segment
           inverted
-          style={{ margin: '5em 0em 0em', padding: '5em 0em' }}
+          style={props.search ?
+            {margin: '5em 0em 0em', padding: '5em 0em', position: 'absolute', bottom: '0', width: '100%' } :
+            { margin: '5em 0em 0em', padding: '5em 0em' }}
           vertical
         >
           <Container textAlign='center'>
@@ -36,7 +39,8 @@ const Footer = (props) => {
 
             </List>
           </Container>
-        </Segment>
+      </Segment>
+      </div>
     )
 }
 

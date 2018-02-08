@@ -49,4 +49,42 @@ email.post('/', function(req, res, next){
 
 })
 
+email.post('/feedback', function(req, res, next){
+
+  const replyTo = req.body.info.email;
+  const name = req.body.info.name;
+  const message = req.body.info.message;
+
+  const request = mailjet
+  .post('send', {version: 'v3.1'})
+  .request({
+      Messages: [
+        {
+          From: {
+            Email: sendFrom,
+            Name: 'Feedback from ' + name
+          },
+          To: [
+                {
+                  Email: sendFrom,
+                  Name: 'passenger 1'
+                }
+              ],
+              Subject: 'Feedback from ' + name,
+              TextPart: 'Dear passenger 1, welcome to Mailjet! May the delivery force be with you!',
+              HTMLPart: '<p>' + message + '<br />' + 'reply to: ' + replyTo + '</p>'
+        }
+      ]
+    })
+
+  request
+    .then((result) => {
+        console.log(result.body)
+        res.sendStatus(200)
+    })
+    .catch((err) => {
+        console.log(err)
+    })
+})
+
 module.exports = email;

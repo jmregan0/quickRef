@@ -79,7 +79,7 @@ class Search extends React.Component {
             )
             }
           </div>
-         <Footer history={this.props.history} />
+         <Footer search={!this.props.research.sources.length} history={this.props.history} />
         </div>
       )
   }
