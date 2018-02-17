@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { Button, Select, Input, Checkbox, Icon, Table } from 'semantic-ui-react'
+import { Button, Select, Input, Checkbox, Table, Modal, Header, Icon } from 'semantic-ui-react'
 import { updateSelected } from '../reducers/sources.jsx'
-import { Modal } from './index'
+import { ModalComponent } from './index'
 import axios from 'axios'
 
 
@@ -16,7 +16,8 @@ class List extends Component {
         { key: 'selected', text: 'Selected', value: 'selected' }
       ],
       userEmail: '',
-      dropdown: 'selected'
+      dropdown: 'selected',
+      showPopup: true
     }
   }
 
@@ -69,6 +70,29 @@ class List extends Component {
   render () {
 
     return (
+      <div>
+      {
+        this.state.showPopup ?
+
+        <Modal open={true} basic size='small'>
+          <Header icon='checkmark' content='Success!' />
+          <Modal.Content>
+            <p>Your research has been retrieved!</p>
+            <Icon name='toggle on' />
+            <p>Use the sliders on the left to select sources you want to save, and then use the form at the bottom to send them to your email address</p>
+          </Modal.Content>
+          <Modal.Actions>
+            <Button
+              color='green'
+              inverted
+              onClick={ () => {this.setState({showPopup: false})} }>
+              <Icon name='checkmark' /> Ok!
+            </Button>
+          </Modal.Actions>
+        </Modal>
+        :
+        ''
+      }
 
       <Table celled compact definition>
       <Table.Header fullWidth>
@@ -97,7 +121,7 @@ class List extends Component {
                 <Table.Cell>{element.type}</Table.Cell>
                 <Table.Cell>
                   {
-                  <Modal item={element} />
+                  <ModalComponent item={element} />
                   }
                 </Table.Cell>
                 <Table.Cell>{element['container-title']}</Table.Cell>
@@ -138,6 +162,7 @@ class List extends Component {
         </Table.Row>
       </Table.Footer>
     </Table>
+    </div>
   )
   }
 }

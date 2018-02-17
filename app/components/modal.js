@@ -8,6 +8,14 @@ class ModalComponent extends Component {
 
     this.show = this.show.bind(this);
     this.close = this.close.bind(this);
+
+    this.types = {
+      'book-chapter': 'images/book.png',
+      'monograph': 'images/paper.png',
+      'journal-article': 'images/report.png',
+      'book': 'images/book.png',
+      'reference-entry': 'images/woman_reading.png'
+    }
   }
 
   show(dimmer) {
@@ -32,27 +40,27 @@ class ModalComponent extends Component {
         </Button>
 
         <Modal dimmer={dimmer} open={open} onClose={this.close()}>
-          <Modal.Header>{this.props.item.type}</Modal.Header>
+          <Modal.Header>{this.props.item.type || 'images/airplane.png'}</Modal.Header>
           <Modal.Content image scrolling>
             <Image
              wrapped size='medium'
-             src={'images/book.png'} />
+             src={this.types[this.props.item.type]} />
             <Modal.Description>
               <Header>{this.props.item.title}</Header>
               {
                 this.props.item.abstract ?
                 <p>{this.props.item.abstract.slice(0, 500) + '...'}</p>
                 :
-                'placeholder'
+                ''
               }
+              <p>Publisher: {this.props.item.publisher}</p>
+              <a href={this.props.item.URL}>Link to Resource</a>
             </Modal.Description>
-            <a href={this.props.item.URL}>view resource</a>
           </Modal.Content>
           <Modal.Actions>
             <Button color='black' onClick={this.close()}>
-              Nope
+              Exit
             </Button>
-            <Button positive icon='checkmark' labelPosition='right' content="Yep, that's me" onClick={this.close()} />
           </Modal.Actions>
         </Modal>
       </div>

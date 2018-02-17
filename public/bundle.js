@@ -1030,7 +1030,7 @@ module.exports = shouldUseNative() ? Object.assign : function (target, source) {
 
 var _prodInvariant = __webpack_require__(14);
 
-var DOMProperty = __webpack_require__(52);
+var DOMProperty = __webpack_require__(53);
 var ReactDOMComponentFlags = __webpack_require__(295);
 
 var invariant = __webpack_require__(7);
@@ -1275,7 +1275,7 @@ module.exports = invariant;
 /* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(46),
+var arrayMap = __webpack_require__(47),
     baseIteratee = __webpack_require__(30),
     baseMap = __webpack_require__(389),
     isArray = __webpack_require__(13);
@@ -2809,7 +2809,7 @@ module.exports = baseRest;
 /* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(44),
+var baseGetTag = __webpack_require__(45),
     getPrototype = __webpack_require__(146),
     isObjectLike = __webpack_require__(37);
 
@@ -3147,640 +3147,6 @@ function getPooledWarningPropertyDefinition(propName, getVal) {
 
 /***/ }),
 /* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Symbol = __webpack_require__(79),
-    getRawTag = __webpack_require__(717),
-    objectToString = __webpack_require__(718);
-
-/** `Object#toString` result references. */
-var nullTag = '[object Null]',
-    undefinedTag = '[object Undefined]';
-
-/** Built-in value references. */
-var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
-
-/**
- * The base implementation of `getTag` without fallbacks for buggy environments.
- *
- * @private
- * @param {*} value The value to query.
- * @returns {string} Returns the `toStringTag`.
- */
-function baseGetTag(value) {
-  if (value == null) {
-    return value === undefined ? undefinedTag : nullTag;
-  }
-  return (symToStringTag && symToStringTag in Object(value))
-    ? getRawTag(value)
-    : objectToString(value);
-}
-
-module.exports = baseGetTag;
-
-
-/***/ }),
-/* 45 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseToString = __webpack_require__(210);
-
-/**
- * Converts `value` to a string. An empty string is returned for `null`
- * and `undefined` values. The sign of `-0` is preserved.
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {string} Returns the converted string.
- * @example
- *
- * _.toString(null);
- * // => ''
- *
- * _.toString(-0);
- * // => '-0'
- *
- * _.toString([1, 2, 3]);
- * // => '1,2,3'
- */
-function toString(value) {
-  return value == null ? '' : baseToString(value);
-}
-
-module.exports = toString;
-
-
-/***/ }),
-/* 46 */
-/***/ (function(module, exports) {
-
-/**
- * A specialized version of `_.map` for arrays without support for iteratee
- * shorthands.
- *
- * @private
- * @param {Array} [array] The array to iterate over.
- * @param {Function} iteratee The function invoked per iteration.
- * @returns {Array} Returns the new mapped array.
- */
-function arrayMap(array, iteratee) {
-  var index = -1,
-      length = array == null ? 0 : array.length,
-      result = Array(length);
-
-  while (++index < length) {
-    result[index] = iteratee(array[index], index, array);
-  }
-  return result;
-}
-
-module.exports = arrayMap;
-
-
-/***/ }),
-/* 47 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var toFinite = __webpack_require__(345);
-
-/**
- * Converts `value` to an integer.
- *
- * **Note:** This method is loosely based on
- * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
- *
- * @static
- * @memberOf _
- * @since 4.0.0
- * @category Lang
- * @param {*} value The value to convert.
- * @returns {number} Returns the converted integer.
- * @example
- *
- * _.toInteger(3.2);
- * // => 3
- *
- * _.toInteger(Number.MIN_VALUE);
- * // => 0
- *
- * _.toInteger(Infinity);
- * // => 1.7976931348623157e+308
- *
- * _.toInteger('3.2');
- * // => 3
- */
-function toInteger(value) {
-  var result = toFinite(value),
-      remainder = result % 1;
-
-  return result === result ? (remainder ? result - remainder : result) : 0;
-}
-
-module.exports = toInteger;
-
-
-/***/ }),
-/* 48 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _from = __webpack_require__(795);
-
-var _from2 = _interopRequireDefault(_from);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function (arr) {
-  if (Array.isArray(arr)) {
-    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
-      arr2[i] = arr[i];
-    }
-
-    return arr2;
-  } else {
-    return (0, _from2.default)(arr);
-  }
-};
-
-/***/ }),
-/* 49 */
-/***/ (function(module, exports) {
-
-module.exports = {
-  'cap': false,
-  'curry': false,
-  'fixed': false,
-  'immutable': false,
-  'rearg': false
-};
-
-
-/***/ }),
-/* 50 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var baseIndexOf = __webpack_require__(128),
-    isArrayLike = __webpack_require__(38),
-    isString = __webpack_require__(238),
-    toInteger = __webpack_require__(47),
-    values = __webpack_require__(105);
-
-/* Built-in method references for those with the same name as other `lodash` methods. */
-var nativeMax = Math.max;
-
-/**
- * Checks if `value` is in `collection`. If `collection` is a string, it's
- * checked for a substring of `value`, otherwise
- * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
- * is used for equality comparisons. If `fromIndex` is negative, it's used as
- * the offset from the end of `collection`.
- *
- * @static
- * @memberOf _
- * @since 0.1.0
- * @category Collection
- * @param {Array|Object|string} collection The collection to inspect.
- * @param {*} value The value to search for.
- * @param {number} [fromIndex=0] The index to search from.
- * @param- {Object} [guard] Enables use as an iteratee for methods like `_.reduce`.
- * @returns {boolean} Returns `true` if `value` is found, else `false`.
- * @example
- *
- * _.includes([1, 2, 3], 1);
- * // => true
- *
- * _.includes([1, 2, 3], 1, 2);
- * // => false
- *
- * _.includes({ 'a': 1, 'b': 2 }, 1);
- * // => true
- *
- * _.includes('abcd', 'bc');
- * // => true
- */
-function includes(collection, value, fromIndex, guard) {
-  collection = isArrayLike(collection) ? collection : values(collection);
-  fromIndex = (fromIndex && !guard) ? toInteger(fromIndex) : 0;
-
-  var length = collection.length;
-  if (fromIndex < 0) {
-    fromIndex = nativeMax(length + fromIndex, 0);
-  }
-  return isString(collection)
-    ? (fromIndex <= length && collection.indexOf(value, fromIndex) > -1)
-    : (!!length && baseIndexOf(collection, value, fromIndex) > -1);
-}
-
-module.exports = includes;
-
-
-/***/ }),
-/* 51 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_get__ = __webpack_require__(31);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_get___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_get__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isNil__ = __webpack_require__(23);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isNil___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash_isNil__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_classnames__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_Checkbox__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addons_Radio__ = __webpack_require__(242);
-
-
-
-
-
-
-
-
-
-
-
-
-/**
- * A field is a form element containing a label and an input.
- * @see Form
- * @see Button
- * @see Checkbox
- * @see Dropdown
- * @see Input
- * @see Radio
- * @see Select
- * @see Visibility
- */
-function FormField(props) {
-  var children = props.children,
-      className = props.className,
-      content = props.content,
-      control = props.control,
-      disabled = props.disabled,
-      error = props.error,
-      inline = props.inline,
-      label = props.label,
-      required = props.required,
-      type = props.type,
-      width = props.width;
-
-
-  var classes = __WEBPACK_IMPORTED_MODULE_3_classnames___default()(Object(__WEBPACK_IMPORTED_MODULE_6__lib__["A" /* useKeyOnly */])(disabled, 'disabled'), Object(__WEBPACK_IMPORTED_MODULE_6__lib__["A" /* useKeyOnly */])(error, 'error'), Object(__WEBPACK_IMPORTED_MODULE_6__lib__["A" /* useKeyOnly */])(inline, 'inline'), Object(__WEBPACK_IMPORTED_MODULE_6__lib__["A" /* useKeyOnly */])(required, 'required'), Object(__WEBPACK_IMPORTED_MODULE_6__lib__["G" /* useWidthProp */])(width, 'wide'), 'field', className);
-  var rest = Object(__WEBPACK_IMPORTED_MODULE_6__lib__["q" /* getUnhandledProps */])(FormField, props);
-  var ElementType = Object(__WEBPACK_IMPORTED_MODULE_6__lib__["p" /* getElementType */])(FormField, props);
-
-  // ----------------------------------------
-  // No Control
-  // ----------------------------------------
-
-  if (__WEBPACK_IMPORTED_MODULE_2_lodash_isNil___default()(control)) {
-    if (__WEBPACK_IMPORTED_MODULE_2_lodash_isNil___default()(label)) {
-      return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-        ElementType,
-        __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest, { className: classes }),
-        __WEBPACK_IMPORTED_MODULE_6__lib__["d" /* childrenUtils */].isNil(children) ? content : children
-      );
-    }
-
-    return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-      ElementType,
-      __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest, { className: classes }),
-      Object(__WEBPACK_IMPORTED_MODULE_6__lib__["i" /* createHTMLLabel */])(label)
-    );
-  }
-
-  // ----------------------------------------
-  // Checkbox/Radio Control
-  // ----------------------------------------
-  var controlProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest, { content: content, children: children, disabled: disabled, required: required, type: type
-
-    // wrap HTML checkboxes/radios in the label
-  });if (control === 'input' && (type === 'checkbox' || type === 'radio')) {
-    return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-      ElementType,
-      { className: classes },
-      __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-        'label',
-        null,
-        Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(control, controlProps),
-        ' ',
-        label
-      )
-    );
-  }
-
-  // pass label prop to controls that support it
-  if (control === __WEBPACK_IMPORTED_MODULE_7__modules_Checkbox__["a" /* default */] || control === __WEBPACK_IMPORTED_MODULE_8__addons_Radio__["a" /* default */]) {
-    return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-      ElementType,
-      { className: classes },
-      Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(control, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, controlProps, { label: label }))
-    );
-  }
-
-  // ----------------------------------------
-  // Other Control
-  // ----------------------------------------
-
-  return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-    ElementType,
-    { className: classes },
-    Object(__WEBPACK_IMPORTED_MODULE_6__lib__["i" /* createHTMLLabel */])(label, { defaultProps: {
-        htmlFor: __WEBPACK_IMPORTED_MODULE_1_lodash_get___default()(controlProps, 'id') }
-    }),
-    Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(control, controlProps)
-  );
-}
-
-FormField.handledProps = ['as', 'children', 'className', 'content', 'control', 'disabled', 'error', 'inline', 'label', 'required', 'type', 'width'];
-FormField._meta = {
-  name: 'FormField',
-  parent: 'Form',
-  type: __WEBPACK_IMPORTED_MODULE_6__lib__["b" /* META */].TYPES.COLLECTION
-};
-
-FormField.propTypes = process.env.NODE_ENV !== "production" ? {
-  /** An element type to render as (string or function). */
-  as: __WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].as,
-
-  /** Primary content. */
-  children: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.node,
-
-  /** Additional classes. */
-  className: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.string,
-
-  /** Shorthand for primary content. */
-  content: __WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].contentShorthand,
-
-  /**
-   * A form control component (i.e. Dropdown) or HTML tagName (i.e. 'input').
-   * Extra FormField props are passed to the control component.
-   * Mutually exclusive with children.
-   */
-  control: __WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].some([__WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.func, __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.oneOf(['button', 'input', 'select', 'textarea'])]),
-
-  /** Individual fields may be disabled. */
-  disabled: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
-
-  /** Individual fields may display an error state. */
-  error: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
-
-  /** A field can have its label next to instead of above it. */
-  inline: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
-
-  // Heads Up!
-  // Do not disallow children with `label` shorthand
-  // The `control` might accept a `label` prop and `children`
-  /** Mutually exclusive with children. */
-  label: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.node, __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.object]),
-
-  /** A field can show that input is mandatory. */
-  required: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
-
-  /** Passed to the control component (i.e. <input type='password' />) */
-  type: __WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].every([__WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].demand(['control'])]
-  // don't strictly validate HTML types
-  // a control might be passed that uses a `type` prop with unknown values
-  // let the control validate if for us
-  ),
-
-  /** A field can specify its width in grid columns */
-  width: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.oneOf(__WEBPACK_IMPORTED_MODULE_6__lib__["c" /* SUI */].WIDTHS)
-} : {};
-
-/* harmony default export */ __webpack_exports__["a"] = (FormField);
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
-
-/***/ }),
-/* 52 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright 2013-present, Facebook, Inc.
- * All rights reserved.
- *
- * This source code is licensed under the BSD-style license found in the
- * LICENSE file in the root directory of this source tree. An additional grant
- * of patent rights can be found in the PATENTS file in the same directory.
- *
- */
-
-
-
-var _prodInvariant = __webpack_require__(14);
-
-var invariant = __webpack_require__(7);
-
-function checkMask(value, bitmask) {
-  return (value & bitmask) === bitmask;
-}
-
-var DOMPropertyInjection = {
-  /**
-   * Mapping from normalized, camelcased property names to a configuration that
-   * specifies how the associated DOM property should be accessed or rendered.
-   */
-  MUST_USE_PROPERTY: 0x1,
-  HAS_BOOLEAN_VALUE: 0x4,
-  HAS_NUMERIC_VALUE: 0x8,
-  HAS_POSITIVE_NUMERIC_VALUE: 0x10 | 0x8,
-  HAS_OVERLOADED_BOOLEAN_VALUE: 0x20,
-
-  /**
-   * Inject some specialized knowledge about the DOM. This takes a config object
-   * with the following properties:
-   *
-   * isCustomAttribute: function that given an attribute name will return true
-   * if it can be inserted into the DOM verbatim. Useful for data-* or aria-*
-   * attributes where it's impossible to enumerate all of the possible
-   * attribute names,
-   *
-   * Properties: object mapping DOM property name to one of the
-   * DOMPropertyInjection constants or null. If your attribute isn't in here,
-   * it won't get written to the DOM.
-   *
-   * DOMAttributeNames: object mapping React attribute name to the DOM
-   * attribute name. Attribute names not specified use the **lowercase**
-   * normalized name.
-   *
-   * DOMAttributeNamespaces: object mapping React attribute name to the DOM
-   * attribute namespace URL. (Attribute names not specified use no namespace.)
-   *
-   * DOMPropertyNames: similar to DOMAttributeNames but for DOM properties.
-   * Property names not specified use the normalized name.
-   *
-   * DOMMutationMethods: Properties that require special mutation methods. If
-   * `value` is undefined, the mutation method should unset the property.
-   *
-   * @param {object} domPropertyConfig the config as described above.
-   */
-  injectDOMPropertyConfig: function (domPropertyConfig) {
-    var Injection = DOMPropertyInjection;
-    var Properties = domPropertyConfig.Properties || {};
-    var DOMAttributeNamespaces = domPropertyConfig.DOMAttributeNamespaces || {};
-    var DOMAttributeNames = domPropertyConfig.DOMAttributeNames || {};
-    var DOMPropertyNames = domPropertyConfig.DOMPropertyNames || {};
-    var DOMMutationMethods = domPropertyConfig.DOMMutationMethods || {};
-
-    if (domPropertyConfig.isCustomAttribute) {
-      DOMProperty._isCustomAttributeFunctions.push(domPropertyConfig.isCustomAttribute);
-    }
-
-    for (var propName in Properties) {
-      !!DOMProperty.properties.hasOwnProperty(propName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.', propName) : _prodInvariant('48', propName) : void 0;
-
-      var lowerCased = propName.toLowerCase();
-      var propConfig = Properties[propName];
-
-      var propertyInfo = {
-        attributeName: lowerCased,
-        attributeNamespace: null,
-        propertyName: propName,
-        mutationMethod: null,
-
-        mustUseProperty: checkMask(propConfig, Injection.MUST_USE_PROPERTY),
-        hasBooleanValue: checkMask(propConfig, Injection.HAS_BOOLEAN_VALUE),
-        hasNumericValue: checkMask(propConfig, Injection.HAS_NUMERIC_VALUE),
-        hasPositiveNumericValue: checkMask(propConfig, Injection.HAS_POSITIVE_NUMERIC_VALUE),
-        hasOverloadedBooleanValue: checkMask(propConfig, Injection.HAS_OVERLOADED_BOOLEAN_VALUE)
-      };
-      !(propertyInfo.hasBooleanValue + propertyInfo.hasNumericValue + propertyInfo.hasOverloadedBooleanValue <= 1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'DOMProperty: Value can be one of boolean, overloaded boolean, or numeric value, but not a combination: %s', propName) : _prodInvariant('50', propName) : void 0;
-
-      if (process.env.NODE_ENV !== 'production') {
-        DOMProperty.getPossibleStandardName[lowerCased] = propName;
-      }
-
-      if (DOMAttributeNames.hasOwnProperty(propName)) {
-        var attributeName = DOMAttributeNames[propName];
-        propertyInfo.attributeName = attributeName;
-        if (process.env.NODE_ENV !== 'production') {
-          DOMProperty.getPossibleStandardName[attributeName] = propName;
-        }
-      }
-
-      if (DOMAttributeNamespaces.hasOwnProperty(propName)) {
-        propertyInfo.attributeNamespace = DOMAttributeNamespaces[propName];
-      }
-
-      if (DOMPropertyNames.hasOwnProperty(propName)) {
-        propertyInfo.propertyName = DOMPropertyNames[propName];
-      }
-
-      if (DOMMutationMethods.hasOwnProperty(propName)) {
-        propertyInfo.mutationMethod = DOMMutationMethods[propName];
-      }
-
-      DOMProperty.properties[propName] = propertyInfo;
-    }
-  }
-};
-
-/* eslint-disable max-len */
-var ATTRIBUTE_NAME_START_CHAR = ':A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD';
-/* eslint-enable max-len */
-
-/**
- * DOMProperty exports lookup objects that can be used like functions:
- *
- *   > DOMProperty.isValid['id']
- *   true
- *   > DOMProperty.isValid['foobar']
- *   undefined
- *
- * Although this may be confusing, it performs better in general.
- *
- * @see http://jsperf.com/key-exists
- * @see http://jsperf.com/key-missing
- */
-var DOMProperty = {
-  ID_ATTRIBUTE_NAME: 'data-reactid',
-  ROOT_ATTRIBUTE_NAME: 'data-reactroot',
-
-  ATTRIBUTE_NAME_START_CHAR: ATTRIBUTE_NAME_START_CHAR,
-  ATTRIBUTE_NAME_CHAR: ATTRIBUTE_NAME_START_CHAR + '\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040',
-
-  /**
-   * Map from property "standard name" to an object with info about how to set
-   * the property in the DOM. Each object contains:
-   *
-   * attributeName:
-   *   Used when rendering markup or with `*Attribute()`.
-   * attributeNamespace
-   * propertyName:
-   *   Used on DOM node instances. (This includes properties that mutate due to
-   *   external factors.)
-   * mutationMethod:
-   *   If non-null, used instead of the property or `setAttribute()` after
-   *   initial render.
-   * mustUseProperty:
-   *   Whether the property must be accessed and mutated as an object property.
-   * hasBooleanValue:
-   *   Whether the property should be removed when set to a falsey value.
-   * hasNumericValue:
-   *   Whether the property must be numeric or parse as a numeric and should be
-   *   removed when set to a falsey value.
-   * hasPositiveNumericValue:
-   *   Whether the property must be positive numeric or parse as a positive
-   *   numeric and should be removed when set to a falsey value.
-   * hasOverloadedBooleanValue:
-   *   Whether the property can be used as a flag as well as with a value.
-   *   Removed when strictly equal to false; present without a value when
-   *   strictly equal to true; present with a value otherwise.
-   */
-  properties: {},
-
-  /**
-   * Mapping from lowercase property names to the properly cased version, used
-   * to warn in the case of missing properties. Available only in __DEV__.
-   *
-   * autofocus is predefined, because adding it to the property whitelist
-   * causes unintended side effects.
-   *
-   * @type {Object}
-   */
-  getPossibleStandardName: process.env.NODE_ENV !== 'production' ? { autofocus: 'autoFocus' } : null,
-
-  /**
-   * All of the isCustomAttribute() functions that have been injected.
-   */
-  _isCustomAttributeFunctions: [],
-
-  /**
-   * Checks whether a property name is a custom attribute.
-   * @method
-   */
-  isCustomAttribute: function (attributeName) {
-    for (var i = 0; i < DOMProperty._isCustomAttributeFunctions.length; i++) {
-      var isCustomAttributeFn = DOMProperty._isCustomAttributeFunctions[i];
-      if (isCustomAttributeFn(attributeName)) {
-        return true;
-      }
-    }
-    return false;
-  },
-
-  injection: DOMPropertyInjection
-};
-
-module.exports = DOMProperty;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
-
-/***/ }),
-/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3817,7 +3183,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "FormCheckbox", function() { return __WEBPACK_IMPORTED_MODULE_14__collections_Form_FormCheckbox__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__collections_Form_FormDropdown__ = __webpack_require__(434);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "FormDropdown", function() { return __WEBPACK_IMPORTED_MODULE_15__collections_Form_FormDropdown__["a"]; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__collections_Form_FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__collections_Form_FormField__ = __webpack_require__(52);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "FormField", function() { return __WEBPACK_IMPORTED_MODULE_16__collections_Form_FormField__["a"]; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__collections_Form_FormGroup__ = __webpack_require__(435);
 /* harmony reexport (binding) */ __webpack_require__.d(__webpack_exports__, "FormGroup", function() { return __WEBPACK_IMPORTED_MODULE_17__collections_Form_FormGroup__["a"]; });
@@ -4289,6 +3655,640 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 
+
+/***/ }),
+/* 45 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Symbol = __webpack_require__(79),
+    getRawTag = __webpack_require__(717),
+    objectToString = __webpack_require__(718);
+
+/** `Object#toString` result references. */
+var nullTag = '[object Null]',
+    undefinedTag = '[object Undefined]';
+
+/** Built-in value references. */
+var symToStringTag = Symbol ? Symbol.toStringTag : undefined;
+
+/**
+ * The base implementation of `getTag` without fallbacks for buggy environments.
+ *
+ * @private
+ * @param {*} value The value to query.
+ * @returns {string} Returns the `toStringTag`.
+ */
+function baseGetTag(value) {
+  if (value == null) {
+    return value === undefined ? undefinedTag : nullTag;
+  }
+  return (symToStringTag && symToStringTag in Object(value))
+    ? getRawTag(value)
+    : objectToString(value);
+}
+
+module.exports = baseGetTag;
+
+
+/***/ }),
+/* 46 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseToString = __webpack_require__(210);
+
+/**
+ * Converts `value` to a string. An empty string is returned for `null`
+ * and `undefined` values. The sign of `-0` is preserved.
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {string} Returns the converted string.
+ * @example
+ *
+ * _.toString(null);
+ * // => ''
+ *
+ * _.toString(-0);
+ * // => '-0'
+ *
+ * _.toString([1, 2, 3]);
+ * // => '1,2,3'
+ */
+function toString(value) {
+  return value == null ? '' : baseToString(value);
+}
+
+module.exports = toString;
+
+
+/***/ }),
+/* 47 */
+/***/ (function(module, exports) {
+
+/**
+ * A specialized version of `_.map` for arrays without support for iteratee
+ * shorthands.
+ *
+ * @private
+ * @param {Array} [array] The array to iterate over.
+ * @param {Function} iteratee The function invoked per iteration.
+ * @returns {Array} Returns the new mapped array.
+ */
+function arrayMap(array, iteratee) {
+  var index = -1,
+      length = array == null ? 0 : array.length,
+      result = Array(length);
+
+  while (++index < length) {
+    result[index] = iteratee(array[index], index, array);
+  }
+  return result;
+}
+
+module.exports = arrayMap;
+
+
+/***/ }),
+/* 48 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var toFinite = __webpack_require__(345);
+
+/**
+ * Converts `value` to an integer.
+ *
+ * **Note:** This method is loosely based on
+ * [`ToInteger`](http://www.ecma-international.org/ecma-262/7.0/#sec-tointeger).
+ *
+ * @static
+ * @memberOf _
+ * @since 4.0.0
+ * @category Lang
+ * @param {*} value The value to convert.
+ * @returns {number} Returns the converted integer.
+ * @example
+ *
+ * _.toInteger(3.2);
+ * // => 3
+ *
+ * _.toInteger(Number.MIN_VALUE);
+ * // => 0
+ *
+ * _.toInteger(Infinity);
+ * // => 1.7976931348623157e+308
+ *
+ * _.toInteger('3.2');
+ * // => 3
+ */
+function toInteger(value) {
+  var result = toFinite(value),
+      remainder = result % 1;
+
+  return result === result ? (remainder ? result - remainder : result) : 0;
+}
+
+module.exports = toInteger;
+
+
+/***/ }),
+/* 49 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
+var _from = __webpack_require__(795);
+
+var _from2 = _interopRequireDefault(_from);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function (arr) {
+  if (Array.isArray(arr)) {
+    for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) {
+      arr2[i] = arr[i];
+    }
+
+    return arr2;
+  } else {
+    return (0, _from2.default)(arr);
+  }
+};
+
+/***/ }),
+/* 50 */
+/***/ (function(module, exports) {
+
+module.exports = {
+  'cap': false,
+  'curry': false,
+  'fixed': false,
+  'immutable': false,
+  'rearg': false
+};
+
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var baseIndexOf = __webpack_require__(128),
+    isArrayLike = __webpack_require__(38),
+    isString = __webpack_require__(238),
+    toInteger = __webpack_require__(48),
+    values = __webpack_require__(105);
+
+/* Built-in method references for those with the same name as other `lodash` methods. */
+var nativeMax = Math.max;
+
+/**
+ * Checks if `value` is in `collection`. If `collection` is a string, it's
+ * checked for a substring of `value`, otherwise
+ * [`SameValueZero`](http://ecma-international.org/ecma-262/7.0/#sec-samevaluezero)
+ * is used for equality comparisons. If `fromIndex` is negative, it's used as
+ * the offset from the end of `collection`.
+ *
+ * @static
+ * @memberOf _
+ * @since 0.1.0
+ * @category Collection
+ * @param {Array|Object|string} collection The collection to inspect.
+ * @param {*} value The value to search for.
+ * @param {number} [fromIndex=0] The index to search from.
+ * @param- {Object} [guard] Enables use as an iteratee for methods like `_.reduce`.
+ * @returns {boolean} Returns `true` if `value` is found, else `false`.
+ * @example
+ *
+ * _.includes([1, 2, 3], 1);
+ * // => true
+ *
+ * _.includes([1, 2, 3], 1, 2);
+ * // => false
+ *
+ * _.includes({ 'a': 1, 'b': 2 }, 1);
+ * // => true
+ *
+ * _.includes('abcd', 'bc');
+ * // => true
+ */
+function includes(collection, value, fromIndex, guard) {
+  collection = isArrayLike(collection) ? collection : values(collection);
+  fromIndex = (fromIndex && !guard) ? toInteger(fromIndex) : 0;
+
+  var length = collection.length;
+  if (fromIndex < 0) {
+    fromIndex = nativeMax(length + fromIndex, 0);
+  }
+  return isString(collection)
+    ? (fromIndex <= length && collection.indexOf(value, fromIndex) > -1)
+    : (!!length && baseIndexOf(collection, value, fromIndex) > -1);
+}
+
+module.exports = includes;
+
+
+/***/ }),
+/* 52 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_get__ = __webpack_require__(31);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_get___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_get__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isNil__ = __webpack_require__(23);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_lodash_isNil___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_lodash_isNil__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_classnames__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__lib__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__modules_Checkbox__ = __webpack_require__(151);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__addons_Radio__ = __webpack_require__(242);
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+ * A field is a form element containing a label and an input.
+ * @see Form
+ * @see Button
+ * @see Checkbox
+ * @see Dropdown
+ * @see Input
+ * @see Radio
+ * @see Select
+ * @see Visibility
+ */
+function FormField(props) {
+  var children = props.children,
+      className = props.className,
+      content = props.content,
+      control = props.control,
+      disabled = props.disabled,
+      error = props.error,
+      inline = props.inline,
+      label = props.label,
+      required = props.required,
+      type = props.type,
+      width = props.width;
+
+
+  var classes = __WEBPACK_IMPORTED_MODULE_3_classnames___default()(Object(__WEBPACK_IMPORTED_MODULE_6__lib__["A" /* useKeyOnly */])(disabled, 'disabled'), Object(__WEBPACK_IMPORTED_MODULE_6__lib__["A" /* useKeyOnly */])(error, 'error'), Object(__WEBPACK_IMPORTED_MODULE_6__lib__["A" /* useKeyOnly */])(inline, 'inline'), Object(__WEBPACK_IMPORTED_MODULE_6__lib__["A" /* useKeyOnly */])(required, 'required'), Object(__WEBPACK_IMPORTED_MODULE_6__lib__["G" /* useWidthProp */])(width, 'wide'), 'field', className);
+  var rest = Object(__WEBPACK_IMPORTED_MODULE_6__lib__["q" /* getUnhandledProps */])(FormField, props);
+  var ElementType = Object(__WEBPACK_IMPORTED_MODULE_6__lib__["p" /* getElementType */])(FormField, props);
+
+  // ----------------------------------------
+  // No Control
+  // ----------------------------------------
+
+  if (__WEBPACK_IMPORTED_MODULE_2_lodash_isNil___default()(control)) {
+    if (__WEBPACK_IMPORTED_MODULE_2_lodash_isNil___default()(label)) {
+      return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+        ElementType,
+        __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest, { className: classes }),
+        __WEBPACK_IMPORTED_MODULE_6__lib__["d" /* childrenUtils */].isNil(children) ? content : children
+      );
+    }
+
+    return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+      ElementType,
+      __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest, { className: classes }),
+      Object(__WEBPACK_IMPORTED_MODULE_6__lib__["i" /* createHTMLLabel */])(label)
+    );
+  }
+
+  // ----------------------------------------
+  // Checkbox/Radio Control
+  // ----------------------------------------
+  var controlProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, rest, { content: content, children: children, disabled: disabled, required: required, type: type
+
+    // wrap HTML checkboxes/radios in the label
+  });if (control === 'input' && (type === 'checkbox' || type === 'radio')) {
+    return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+      ElementType,
+      { className: classes },
+      __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+        'label',
+        null,
+        Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(control, controlProps),
+        ' ',
+        label
+      )
+    );
+  }
+
+  // pass label prop to controls that support it
+  if (control === __WEBPACK_IMPORTED_MODULE_7__modules_Checkbox__["a" /* default */] || control === __WEBPACK_IMPORTED_MODULE_8__addons_Radio__["a" /* default */]) {
+    return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+      ElementType,
+      { className: classes },
+      Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(control, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, controlProps, { label: label }))
+    );
+  }
+
+  // ----------------------------------------
+  // Other Control
+  // ----------------------------------------
+
+  return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+    ElementType,
+    { className: classes },
+    Object(__WEBPACK_IMPORTED_MODULE_6__lib__["i" /* createHTMLLabel */])(label, { defaultProps: {
+        htmlFor: __WEBPACK_IMPORTED_MODULE_1_lodash_get___default()(controlProps, 'id') }
+    }),
+    Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(control, controlProps)
+  );
+}
+
+FormField.handledProps = ['as', 'children', 'className', 'content', 'control', 'disabled', 'error', 'inline', 'label', 'required', 'type', 'width'];
+FormField._meta = {
+  name: 'FormField',
+  parent: 'Form',
+  type: __WEBPACK_IMPORTED_MODULE_6__lib__["b" /* META */].TYPES.COLLECTION
+};
+
+FormField.propTypes = process.env.NODE_ENV !== "production" ? {
+  /** An element type to render as (string or function). */
+  as: __WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].as,
+
+  /** Primary content. */
+  children: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.node,
+
+  /** Additional classes. */
+  className: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.string,
+
+  /** Shorthand for primary content. */
+  content: __WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].contentShorthand,
+
+  /**
+   * A form control component (i.e. Dropdown) or HTML tagName (i.e. 'input').
+   * Extra FormField props are passed to the control component.
+   * Mutually exclusive with children.
+   */
+  control: __WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].some([__WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.func, __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.oneOf(['button', 'input', 'select', 'textarea'])]),
+
+  /** Individual fields may be disabled. */
+  disabled: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
+
+  /** Individual fields may display an error state. */
+  error: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
+
+  /** A field can have its label next to instead of above it. */
+  inline: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
+
+  // Heads Up!
+  // Do not disallow children with `label` shorthand
+  // The `control` might accept a `label` prop and `children`
+  /** Mutually exclusive with children. */
+  label: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.node, __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.object]),
+
+  /** A field can show that input is mandatory. */
+  required: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.bool,
+
+  /** Passed to the control component (i.e. <input type='password' />) */
+  type: __WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].every([__WEBPACK_IMPORTED_MODULE_6__lib__["m" /* customPropTypes */].demand(['control'])]
+  // don't strictly validate HTML types
+  // a control might be passed that uses a `type` prop with unknown values
+  // let the control validate if for us
+  ),
+
+  /** A field can specify its width in grid columns */
+  width: __WEBPACK_IMPORTED_MODULE_4_prop_types___default.a.oneOf(__WEBPACK_IMPORTED_MODULE_6__lib__["c" /* SUI */].WIDTHS)
+} : {};
+
+/* harmony default export */ __webpack_exports__["a"] = (FormField);
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/**
+ * Copyright 2013-present, Facebook, Inc.
+ * All rights reserved.
+ *
+ * This source code is licensed under the BSD-style license found in the
+ * LICENSE file in the root directory of this source tree. An additional grant
+ * of patent rights can be found in the PATENTS file in the same directory.
+ *
+ */
+
+
+
+var _prodInvariant = __webpack_require__(14);
+
+var invariant = __webpack_require__(7);
+
+function checkMask(value, bitmask) {
+  return (value & bitmask) === bitmask;
+}
+
+var DOMPropertyInjection = {
+  /**
+   * Mapping from normalized, camelcased property names to a configuration that
+   * specifies how the associated DOM property should be accessed or rendered.
+   */
+  MUST_USE_PROPERTY: 0x1,
+  HAS_BOOLEAN_VALUE: 0x4,
+  HAS_NUMERIC_VALUE: 0x8,
+  HAS_POSITIVE_NUMERIC_VALUE: 0x10 | 0x8,
+  HAS_OVERLOADED_BOOLEAN_VALUE: 0x20,
+
+  /**
+   * Inject some specialized knowledge about the DOM. This takes a config object
+   * with the following properties:
+   *
+   * isCustomAttribute: function that given an attribute name will return true
+   * if it can be inserted into the DOM verbatim. Useful for data-* or aria-*
+   * attributes where it's impossible to enumerate all of the possible
+   * attribute names,
+   *
+   * Properties: object mapping DOM property name to one of the
+   * DOMPropertyInjection constants or null. If your attribute isn't in here,
+   * it won't get written to the DOM.
+   *
+   * DOMAttributeNames: object mapping React attribute name to the DOM
+   * attribute name. Attribute names not specified use the **lowercase**
+   * normalized name.
+   *
+   * DOMAttributeNamespaces: object mapping React attribute name to the DOM
+   * attribute namespace URL. (Attribute names not specified use no namespace.)
+   *
+   * DOMPropertyNames: similar to DOMAttributeNames but for DOM properties.
+   * Property names not specified use the normalized name.
+   *
+   * DOMMutationMethods: Properties that require special mutation methods. If
+   * `value` is undefined, the mutation method should unset the property.
+   *
+   * @param {object} domPropertyConfig the config as described above.
+   */
+  injectDOMPropertyConfig: function (domPropertyConfig) {
+    var Injection = DOMPropertyInjection;
+    var Properties = domPropertyConfig.Properties || {};
+    var DOMAttributeNamespaces = domPropertyConfig.DOMAttributeNamespaces || {};
+    var DOMAttributeNames = domPropertyConfig.DOMAttributeNames || {};
+    var DOMPropertyNames = domPropertyConfig.DOMPropertyNames || {};
+    var DOMMutationMethods = domPropertyConfig.DOMMutationMethods || {};
+
+    if (domPropertyConfig.isCustomAttribute) {
+      DOMProperty._isCustomAttributeFunctions.push(domPropertyConfig.isCustomAttribute);
+    }
+
+    for (var propName in Properties) {
+      !!DOMProperty.properties.hasOwnProperty(propName) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'injectDOMPropertyConfig(...): You\'re trying to inject DOM property \'%s\' which has already been injected. You may be accidentally injecting the same DOM property config twice, or you may be injecting two configs that have conflicting property names.', propName) : _prodInvariant('48', propName) : void 0;
+
+      var lowerCased = propName.toLowerCase();
+      var propConfig = Properties[propName];
+
+      var propertyInfo = {
+        attributeName: lowerCased,
+        attributeNamespace: null,
+        propertyName: propName,
+        mutationMethod: null,
+
+        mustUseProperty: checkMask(propConfig, Injection.MUST_USE_PROPERTY),
+        hasBooleanValue: checkMask(propConfig, Injection.HAS_BOOLEAN_VALUE),
+        hasNumericValue: checkMask(propConfig, Injection.HAS_NUMERIC_VALUE),
+        hasPositiveNumericValue: checkMask(propConfig, Injection.HAS_POSITIVE_NUMERIC_VALUE),
+        hasOverloadedBooleanValue: checkMask(propConfig, Injection.HAS_OVERLOADED_BOOLEAN_VALUE)
+      };
+      !(propertyInfo.hasBooleanValue + propertyInfo.hasNumericValue + propertyInfo.hasOverloadedBooleanValue <= 1) ? process.env.NODE_ENV !== 'production' ? invariant(false, 'DOMProperty: Value can be one of boolean, overloaded boolean, or numeric value, but not a combination: %s', propName) : _prodInvariant('50', propName) : void 0;
+
+      if (process.env.NODE_ENV !== 'production') {
+        DOMProperty.getPossibleStandardName[lowerCased] = propName;
+      }
+
+      if (DOMAttributeNames.hasOwnProperty(propName)) {
+        var attributeName = DOMAttributeNames[propName];
+        propertyInfo.attributeName = attributeName;
+        if (process.env.NODE_ENV !== 'production') {
+          DOMProperty.getPossibleStandardName[attributeName] = propName;
+        }
+      }
+
+      if (DOMAttributeNamespaces.hasOwnProperty(propName)) {
+        propertyInfo.attributeNamespace = DOMAttributeNamespaces[propName];
+      }
+
+      if (DOMPropertyNames.hasOwnProperty(propName)) {
+        propertyInfo.propertyName = DOMPropertyNames[propName];
+      }
+
+      if (DOMMutationMethods.hasOwnProperty(propName)) {
+        propertyInfo.mutationMethod = DOMMutationMethods[propName];
+      }
+
+      DOMProperty.properties[propName] = propertyInfo;
+    }
+  }
+};
+
+/* eslint-disable max-len */
+var ATTRIBUTE_NAME_START_CHAR = ':A-Z_a-z\\u00C0-\\u00D6\\u00D8-\\u00F6\\u00F8-\\u02FF\\u0370-\\u037D\\u037F-\\u1FFF\\u200C-\\u200D\\u2070-\\u218F\\u2C00-\\u2FEF\\u3001-\\uD7FF\\uF900-\\uFDCF\\uFDF0-\\uFFFD';
+/* eslint-enable max-len */
+
+/**
+ * DOMProperty exports lookup objects that can be used like functions:
+ *
+ *   > DOMProperty.isValid['id']
+ *   true
+ *   > DOMProperty.isValid['foobar']
+ *   undefined
+ *
+ * Although this may be confusing, it performs better in general.
+ *
+ * @see http://jsperf.com/key-exists
+ * @see http://jsperf.com/key-missing
+ */
+var DOMProperty = {
+  ID_ATTRIBUTE_NAME: 'data-reactid',
+  ROOT_ATTRIBUTE_NAME: 'data-reactroot',
+
+  ATTRIBUTE_NAME_START_CHAR: ATTRIBUTE_NAME_START_CHAR,
+  ATTRIBUTE_NAME_CHAR: ATTRIBUTE_NAME_START_CHAR + '\\-.0-9\\u00B7\\u0300-\\u036F\\u203F-\\u2040',
+
+  /**
+   * Map from property "standard name" to an object with info about how to set
+   * the property in the DOM. Each object contains:
+   *
+   * attributeName:
+   *   Used when rendering markup or with `*Attribute()`.
+   * attributeNamespace
+   * propertyName:
+   *   Used on DOM node instances. (This includes properties that mutate due to
+   *   external factors.)
+   * mutationMethod:
+   *   If non-null, used instead of the property or `setAttribute()` after
+   *   initial render.
+   * mustUseProperty:
+   *   Whether the property must be accessed and mutated as an object property.
+   * hasBooleanValue:
+   *   Whether the property should be removed when set to a falsey value.
+   * hasNumericValue:
+   *   Whether the property must be numeric or parse as a numeric and should be
+   *   removed when set to a falsey value.
+   * hasPositiveNumericValue:
+   *   Whether the property must be positive numeric or parse as a positive
+   *   numeric and should be removed when set to a falsey value.
+   * hasOverloadedBooleanValue:
+   *   Whether the property can be used as a flag as well as with a value.
+   *   Removed when strictly equal to false; present without a value when
+   *   strictly equal to true; present with a value otherwise.
+   */
+  properties: {},
+
+  /**
+   * Mapping from lowercase property names to the properly cased version, used
+   * to warn in the case of missing properties. Available only in __DEV__.
+   *
+   * autofocus is predefined, because adding it to the property whitelist
+   * causes unintended side effects.
+   *
+   * @type {Object}
+   */
+  getPossibleStandardName: process.env.NODE_ENV !== 'production' ? { autofocus: 'autoFocus' } : null,
+
+  /**
+   * All of the isCustomAttribute() functions that have been injected.
+   */
+  _isCustomAttributeFunctions: [],
+
+  /**
+   * Checks whether a property name is a custom attribute.
+   * @method
+   */
+  isCustomAttribute: function (attributeName) {
+    for (var i = 0; i < DOMProperty._isCustomAttributeFunctions.length; i++) {
+      var isCustomAttributeFn = DOMProperty._isCustomAttributeFunctions[i];
+      if (isCustomAttributeFn(attributeName)) {
+        return true;
+      }
+    }
+    return false;
+  },
+
+  injection: DOMPropertyInjection
+};
+
+module.exports = DOMProperty;
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 54 */
@@ -5030,7 +5030,7 @@ module.exports = function(it, key){
 /* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(44),
+var baseGetTag = __webpack_require__(45),
     isObjectLike = __webpack_require__(37);
 
 /** `Object#toString` result references. */
@@ -5088,7 +5088,7 @@ module.exports = getNative;
 /* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(44),
+var baseGetTag = __webpack_require__(45),
     isObject = __webpack_require__(27);
 
 /** `Object#toString` result references. */
@@ -6612,7 +6612,7 @@ Object.defineProperty(exports, 'List', {
 
 var _modal = __webpack_require__(1052);
 
-Object.defineProperty(exports, 'Modal', {
+Object.defineProperty(exports, 'ModalComponent', {
   enumerable: true,
   get: function get() {
     return _interopRequireDefault(_modal).default;
@@ -6715,7 +6715,7 @@ module.exports = apply;
 var isArray = __webpack_require__(13),
     isKey = __webpack_require__(206),
     stringToPath = __webpack_require__(335),
-    toString = __webpack_require__(45);
+    toString = __webpack_require__(46);
 
 /**
  * Casts `value` to a path array if it's not one.
@@ -8826,7 +8826,7 @@ var DataView = __webpack_require__(769),
     Promise = __webpack_require__(770),
     Set = __webpack_require__(356),
     WeakMap = __webpack_require__(357),
-    baseGetTag = __webpack_require__(44),
+    baseGetTag = __webpack_require__(45),
     toSource = __webpack_require__(336);
 
 /** `Object#toString` result references. */
@@ -9044,7 +9044,7 @@ var baseSetData = __webpack_require__(369),
     mergeData = __webpack_require__(818),
     setData = __webpack_require__(377),
     setWrapToString = __webpack_require__(378),
-    toInteger = __webpack_require__(47);
+    toInteger = __webpack_require__(48);
 
 /** Error message constants. */
 var FUNC_ERROR_TEXT = 'Expected a function';
@@ -13213,7 +13213,7 @@ module.exports = Map;
 /***/ (function(module, exports, __webpack_require__) {
 
 var Symbol = __webpack_require__(79),
-    arrayMap = __webpack_require__(46),
+    arrayMap = __webpack_require__(47),
     isArray = __webpack_require__(13),
     isSymbol = __webpack_require__(66);
 
@@ -13278,7 +13278,7 @@ module.exports = setToString;
 var SetCache = __webpack_require__(126),
     arrayIncludes = __webpack_require__(127),
     arrayIncludesWith = __webpack_require__(213),
-    arrayMap = __webpack_require__(46),
+    arrayMap = __webpack_require__(47),
     baseUnary = __webpack_require__(129),
     cacheHas = __webpack_require__(130);
 
@@ -14148,7 +14148,7 @@ module.exports = baseUniq;
 /* 238 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(44),
+var baseGetTag = __webpack_require__(45),
     isArray = __webpack_require__(13),
     isObjectLike = __webpack_require__(37);
 
@@ -14226,7 +14226,7 @@ module.exports = isEqual;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
@@ -16671,7 +16671,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(53);
+var _semanticUiReact = __webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -19867,7 +19867,7 @@ module.exports = CSSProperty;
 
 
 
-var DOMProperty = __webpack_require__(52);
+var DOMProperty = __webpack_require__(53);
 var ReactDOMComponentTree = __webpack_require__(19);
 var ReactInstrumentation = __webpack_require__(34);
 
@@ -21066,7 +21066,7 @@ module.exports = getActiveElement;
 var _prodInvariant = __webpack_require__(14);
 
 var DOMLazyTree = __webpack_require__(74);
-var DOMProperty = __webpack_require__(52);
+var DOMProperty = __webpack_require__(53);
 var React = __webpack_require__(71);
 var ReactBrowserEventEmitter = __webpack_require__(115);
 var ReactCurrentOwner = __webpack_require__(39);
@@ -22453,8 +22453,8 @@ module.exports = baseFindIndex;
 
 var baseClamp = __webpack_require__(344),
     baseToString = __webpack_require__(210),
-    toInteger = __webpack_require__(47),
-    toString = __webpack_require__(45);
+    toInteger = __webpack_require__(48),
+    toString = __webpack_require__(46);
 
 /**
  * Checks if `string` starts with the given target string.
@@ -23083,7 +23083,7 @@ module.exports = baseProperty;
 /* 363 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(46),
+var arrayMap = __webpack_require__(47),
     baseIntersection = __webpack_require__(776),
     baseRest = __webpack_require__(41),
     castArrayLikeObject = __webpack_require__(777);
@@ -23230,7 +23230,7 @@ module.exports = find;
 
 var baseFindIndex = __webpack_require__(342),
     baseIteratee = __webpack_require__(30),
-    toInteger = __webpack_require__(47);
+    toInteger = __webpack_require__(48);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMax = Math.max;
@@ -24363,7 +24363,7 @@ module.exports = uniq;
 /* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(44),
+var baseGetTag = __webpack_require__(45),
     isObjectLike = __webpack_require__(37);
 
 /** `Object#toString` result references. */
@@ -24515,7 +24515,7 @@ var isPrivate = __WEBPACK_IMPORTED_MODULE_3_lodash_fp_flow___default()(getMeta, 
 
 var baseTimes = __webpack_require__(347),
     castFunction = __webpack_require__(364),
-    toInteger = __webpack_require__(47);
+    toInteger = __webpack_require__(48);
 
 /** Used as references for various `Number` constants. */
 var MAX_SAFE_INTEGER = 9007199254740991;
@@ -25858,7 +25858,7 @@ module.exports = function(KEY, exec){
 /***/ (function(module, exports, __webpack_require__) {
 
 var deburrLetter = __webpack_require__(922),
-    toString = __webpack_require__(45);
+    toString = __webpack_require__(46);
 
 /** Used to match Latin Unicode letters (excluding mathematical operators). */
 var reLatin = /[\xc0-\xd6\xd8-\xf6\xf8-\xff\u0100-\u017f]/g;
@@ -26520,7 +26520,7 @@ DropdownSearchInput.create = Object(__WEBPACK_IMPORTED_MODULE_10__lib__["l" /* c
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_includes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_includes__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_includes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_lodash_includes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_get__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_get___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_lodash_get__);
@@ -27371,7 +27371,7 @@ BreadcrumbSection.create = Object(__WEBPACK_IMPORTED_MODULE_9__lib__["l" /* crea
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__elements_Button__ = __webpack_require__(148);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(52);
 
 
 
@@ -27427,7 +27427,7 @@ FormButton.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_Checkbox__ = __webpack_require__(151);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(52);
 
 
 
@@ -27483,7 +27483,7 @@ FormCheckbox.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__modules_Dropdown__ = __webpack_require__(243);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(52);
 
 
 
@@ -27533,7 +27533,7 @@ FormDropdown.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
@@ -27620,7 +27620,7 @@ FormGroup.propTypes = process.env.NODE_ENV !== "production" ? {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__elements_Input__ = __webpack_require__(244);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(52);
 
 
 
@@ -27676,7 +27676,7 @@ FormInput.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__addons_Radio__ = __webpack_require__(242);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(52);
 
 
 
@@ -27732,7 +27732,7 @@ FormRadio.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__addons_Select__ = __webpack_require__(414);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(52);
 
 
 
@@ -27788,7 +27788,7 @@ FormSelect.defaultProps = {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__addons_TextArea__ = __webpack_require__(425);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__FormField__ = __webpack_require__(52);
 
 
 
@@ -27838,7 +27838,7 @@ FormTextArea.defaultProps = {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
@@ -27964,7 +27964,7 @@ Grid.propTypes = process.env.NODE_ENV !== "production" ? {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
@@ -30138,7 +30138,7 @@ StepContent.create = Object(__WEBPACK_IMPORTED_MODULE_4__lib__["l" /* createShor
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
@@ -30278,7 +30278,7 @@ StepGroup.propTypes = process.env.NODE_ENV !== "production" ? {
 "use strict";
 /* WEBPACK VAR INJECTION */(function(process) {/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
@@ -30296,7 +30296,7 @@ StepGroup.propTypes = process.env.NODE_ENV !== "production" ? {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_invoke___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_lodash_invoke__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_without__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_without___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_lodash_without__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash_includes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash_includes__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash_includes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_lodash_includes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_classnames__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_classnames___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_classnames__);
@@ -34040,7 +34040,7 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRedux = __webpack_require__(161);
 
-var _semanticUiReact = __webpack_require__(53);
+var _semanticUiReact = __webpack_require__(44);
 
 var _sources = __webpack_require__(167);
 
@@ -34069,7 +34069,8 @@ var List = function (_Component) {
     _this.state = {
       options: [{ key: 'all', text: 'All', value: 'all' }, { key: 'selected', text: 'Selected', value: 'selected' }],
       userEmail: '',
-      dropdown: 'selected'
+      dropdown: 'selected',
+      showPopup: true
     };
     return _this;
   }
@@ -34126,121 +34127,160 @@ var List = function (_Component) {
       var _this2 = this;
 
       return _react2.default.createElement(
-        _semanticUiReact.Table,
-        { celled: true, compact: true, definition: true },
-        _react2.default.createElement(
-          _semanticUiReact.Table.Header,
-          { fullWidth: true },
+        'div',
+        null,
+        this.state.showPopup ? _react2.default.createElement(
+          _semanticUiReact.Modal,
+          { open: true, basic: true, size: 'small' },
+          _react2.default.createElement(_semanticUiReact.Header, { icon: 'checkmark', content: 'Success!' }),
           _react2.default.createElement(
-            _semanticUiReact.Table.Row,
+            _semanticUiReact.Modal.Content,
             null,
             _react2.default.createElement(
-              _semanticUiReact.Table.HeaderCell,
+              'p',
               null,
-              'Select'
+              'Your research has been retrieved!'
             ),
-            _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
+            _react2.default.createElement(_semanticUiReact.Icon, { name: 'toggle on' }),
             _react2.default.createElement(
-              _semanticUiReact.Table.HeaderCell,
+              'p',
               null,
-              'Data Type'
-            ),
+              'Use the sliders on the left to select sources you want to save, and then use the form at the bottom to send them to your email address'
+            )
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Modal.Actions,
+            null,
             _react2.default.createElement(
-              _semanticUiReact.Table.HeaderCell,
-              null,
-              'Title'
-            ),
-            _react2.default.createElement(
-              _semanticUiReact.Table.HeaderCell,
-              null,
-              'Collection Name'
-            ),
-            _react2.default.createElement(
-              _semanticUiReact.Table.HeaderCell,
-              null,
-              'Publisher'
+              _semanticUiReact.Button,
+              {
+                color: 'green',
+                inverted: true,
+                onClick: function onClick() {
+                  _this2.setState({ showPopup: false });
+                } },
+              _react2.default.createElement(_semanticUiReact.Icon, { name: 'checkmark' }),
+              ' Ok!'
             )
           )
-        ),
+        ) : '',
         _react2.default.createElement(
-          _semanticUiReact.Table.Body,
-          null,
-          this.props.research.map(function (element, index) {
-            return _react2.default.createElement(
+          _semanticUiReact.Table,
+          { celled: true, compact: true, definition: true },
+          _react2.default.createElement(
+            _semanticUiReact.Table.Header,
+            { fullWidth: true },
+            _react2.default.createElement(
               _semanticUiReact.Table.Row,
               null,
               _react2.default.createElement(
-                _semanticUiReact.Table.Cell,
-                { collapsing: true },
-                _react2.default.createElement(_semanticUiReact.Checkbox, {
-                  defaultChecked: false,
-                  slider: true,
-                  onChange: function onChange() {
-                    _this2.handleClick(index);
-                  } })
+                _semanticUiReact.Table.HeaderCell,
+                null,
+                'Select'
+              ),
+              _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                null,
+                'Data Type'
               ),
               _react2.default.createElement(
-                _semanticUiReact.Table.Cell,
+                _semanticUiReact.Table.HeaderCell,
                 null,
-                index + 1
+                'Title'
               ),
               _react2.default.createElement(
-                _semanticUiReact.Table.Cell,
+                _semanticUiReact.Table.HeaderCell,
                 null,
-                element.type
+                'Collection Name'
               ),
               _react2.default.createElement(
-                _semanticUiReact.Table.Cell,
+                _semanticUiReact.Table.HeaderCell,
                 null,
-                _react2.default.createElement(_index.Modal, { item: element })
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Table.Cell,
-                null,
-                element['container-title']
-              ),
-              _react2.default.createElement(
-                _semanticUiReact.Table.Cell,
-                null,
-                element.publisher
+                'Publisher'
               )
-            );
-          })
-        ),
-        _react2.default.createElement(
-          _semanticUiReact.Table.Footer,
-          { fullWidth: true },
+            )
+          ),
           _react2.default.createElement(
-            _semanticUiReact.Table.Row,
+            _semanticUiReact.Table.Body,
             null,
-            _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
-            _react2.default.createElement(
-              _semanticUiReact.Table.HeaderCell,
-              { colSpan: '4' },
-              _react2.default.createElement(
-                _semanticUiReact.Input,
-                {
-                  onChange: function onChange(e) {
-                    _this2.setState({ userEmail: e.target.value });
-                  },
-                  type: 'text',
-                  placeholder: 'your email',
-                  action: true },
-                _react2.default.createElement('input', null),
-                _react2.default.createElement(_semanticUiReact.Select, {
-                  compact: true, options: this.state.options, defaultValue: 'selected',
-                  onChange: function onChange(e, data) {
-                    _this2.setState({ dropdown: data.value });
-                  }
-                }),
+            this.props.research.map(function (element, index) {
+              return _react2.default.createElement(
+                _semanticUiReact.Table.Row,
+                null,
                 _react2.default.createElement(
-                  _semanticUiReact.Button,
+                  _semanticUiReact.Table.Cell,
+                  { collapsing: true },
+                  _react2.default.createElement(_semanticUiReact.Checkbox, {
+                    defaultChecked: false,
+                    slider: true,
+                    onChange: function onChange() {
+                      _this2.handleClick(index);
+                    } })
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.Cell,
+                  null,
+                  index + 1
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.Cell,
+                  null,
+                  element.type
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.Cell,
+                  null,
+                  _react2.default.createElement(_index.ModalComponent, { item: element })
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.Cell,
+                  null,
+                  element['container-title']
+                ),
+                _react2.default.createElement(
+                  _semanticUiReact.Table.Cell,
+                  null,
+                  element.publisher
+                )
+              );
+            })
+          ),
+          _react2.default.createElement(
+            _semanticUiReact.Table.Footer,
+            { fullWidth: true },
+            _react2.default.createElement(
+              _semanticUiReact.Table.Row,
+              null,
+              _react2.default.createElement(_semanticUiReact.Table.HeaderCell, null),
+              _react2.default.createElement(
+                _semanticUiReact.Table.HeaderCell,
+                { colSpan: '4' },
+                _react2.default.createElement(
+                  _semanticUiReact.Input,
                   {
-                    primary: true, type: 'submit',
-                    onClick: function onClick() {
-                      _this2.sendSources(_this2.state.dropdown);
-                    } },
-                  'Send'
+                    onChange: function onChange(e) {
+                      _this2.setState({ userEmail: e.target.value });
+                    },
+                    type: 'text',
+                    placeholder: 'your email',
+                    action: true },
+                  _react2.default.createElement('input', null),
+                  _react2.default.createElement(_semanticUiReact.Select, {
+                    compact: true, options: this.state.options, defaultValue: 'selected',
+                    onChange: function onChange(e, data) {
+                      _this2.setState({ dropdown: data.value });
+                    }
+                  }),
+                  _react2.default.createElement(
+                    _semanticUiReact.Button,
+                    {
+                      primary: true, type: 'submit',
+                      onClick: function onClick() {
+                        _this2.sendSources(_this2.state.dropdown);
+                      } },
+                    'Send'
+                  )
                 )
               )
             )
@@ -34294,7 +34334,7 @@ var _routes = __webpack_require__(651);
 
 var _routes2 = _interopRequireDefault(_routes);
 
-__webpack_require__(1056);
+__webpack_require__(1057);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -40442,7 +40482,7 @@ module.exports = EnterLeaveEventPlugin;
 
 
 
-var DOMProperty = __webpack_require__(52);
+var DOMProperty = __webpack_require__(53);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -41139,7 +41179,7 @@ var AutoFocusUtils = __webpack_require__(591);
 var CSSPropertyOperations = __webpack_require__(592);
 var DOMLazyTree = __webpack_require__(74);
 var DOMNamespaces = __webpack_require__(176);
-var DOMProperty = __webpack_require__(52);
+var DOMProperty = __webpack_require__(53);
 var DOMPropertyOperations = __webpack_require__(307);
 var EventPluginHub = __webpack_require__(88);
 var EventPluginRegistry = __webpack_require__(110);
@@ -46154,7 +46194,7 @@ module.exports = getUnboundedScrollPosition;
 
 
 
-var DOMProperty = __webpack_require__(52);
+var DOMProperty = __webpack_require__(53);
 var EventPluginHub = __webpack_require__(88);
 var EventPluginUtils = __webpack_require__(170);
 var ReactComponentEnvironment = __webpack_require__(179);
@@ -48308,7 +48348,7 @@ module.exports = ReactMount.renderSubtreeIntoContainer;
 
 
 
-var DOMProperty = __webpack_require__(52);
+var DOMProperty = __webpack_require__(53);
 var EventPluginRegistry = __webpack_require__(110);
 var ReactComponentTreeHook = __webpack_require__(28);
 
@@ -48475,7 +48515,7 @@ module.exports = ReactDOMNullInputValuePropHook;
 
 
 
-var DOMProperty = __webpack_require__(52);
+var DOMProperty = __webpack_require__(53);
 var ReactComponentTreeHook = __webpack_require__(28);
 
 var warning = __webpack_require__(11);
@@ -50833,7 +50873,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(53);
+var _semanticUiReact = __webpack_require__(44);
 
 var _reactRouterDom = __webpack_require__(320);
 
@@ -53090,7 +53130,7 @@ module.exports = isFlattenable;
 /* 750 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(44),
+var baseGetTag = __webpack_require__(45),
     isObjectLike = __webpack_require__(37);
 
 /** `Object#toString` result references. */
@@ -53218,7 +53258,7 @@ module.exports = stubFalse;
 /* 755 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(44),
+var baseGetTag = __webpack_require__(45),
     isLength = __webpack_require__(215),
     isObjectLike = __webpack_require__(37);
 
@@ -54063,7 +54103,7 @@ module.exports = basePropertyDeep;
 var SetCache = __webpack_require__(126),
     arrayIncludes = __webpack_require__(127),
     arrayIncludesWith = __webpack_require__(213),
-    arrayMap = __webpack_require__(46),
+    arrayMap = __webpack_require__(47),
     baseUnary = __webpack_require__(129),
     cacheHas = __webpack_require__(130);
 
@@ -54747,7 +54787,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "itemShorthand", function() { return itemShorthand; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "collectionShorthand", function() { return collectionShorthand; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "deprecate", function() { return deprecate; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_fp_difference__ = __webpack_require__(802);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_fp_difference___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_fp_difference__);
@@ -56229,7 +56269,7 @@ module.exports = {
   'iteratee': __webpack_require__(837),
   'keys': __webpack_require__(135),
   'rearg': __webpack_require__(838),
-  'toInteger': __webpack_require__(47),
+  'toInteger': __webpack_require__(48),
   'toPath': __webpack_require__(840)
 };
 
@@ -57535,13 +57575,13 @@ module.exports = flatten;
 /* 840 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(46),
+var arrayMap = __webpack_require__(47),
     copyArray = __webpack_require__(143),
     isArray = __webpack_require__(13),
     isSymbol = __webpack_require__(66),
     stringToPath = __webpack_require__(335),
     toKey = __webpack_require__(69),
-    toString = __webpack_require__(45);
+    toString = __webpack_require__(46);
 
 /**
  * Converts `value` to a property path array.
@@ -57590,7 +57630,7 @@ var baseToString = __webpack_require__(210),
     charsEndIndex = __webpack_require__(843),
     charsStartIndex = __webpack_require__(844),
     stringToArray = __webpack_require__(385),
-    toString = __webpack_require__(45);
+    toString = __webpack_require__(46);
 
 /** Used to match leading and trailing whitespace. */
 var reTrim = /^\s+|\s+$/g;
@@ -57756,7 +57796,7 @@ module.exports = unicodeToArray;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('isObject', __webpack_require__(27), __webpack_require__(49));
+    func = convert('isObject', __webpack_require__(27), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -57803,7 +57843,7 @@ module.exports = basePick;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('keys', __webpack_require__(29), __webpack_require__(49));
+    func = convert('keys', __webpack_require__(29), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -57814,7 +57854,7 @@ module.exports = func;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('isPlainObject', __webpack_require__(42), __webpack_require__(49));
+    func = convert('isPlainObject', __webpack_require__(42), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -57825,7 +57865,7 @@ module.exports = func;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('isFunction', __webpack_require__(68), __webpack_require__(49));
+    func = convert('isFunction', __webpack_require__(68), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -57836,7 +57876,7 @@ module.exports = func;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('compact', __webpack_require__(388), __webpack_require__(49));
+    func = convert('compact', __webpack_require__(388), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -57847,7 +57887,7 @@ module.exports = func;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('isNil', __webpack_require__(23), __webpack_require__(49));
+    func = convert('isNil', __webpack_require__(23), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -57869,7 +57909,7 @@ module.exports = func;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseSlice = __webpack_require__(125),
-    toInteger = __webpack_require__(47);
+    toInteger = __webpack_require__(48);
 
 /**
  * Creates a slice of `array` with `n` elements taken from the beginning.
@@ -57976,7 +58016,7 @@ module.exports = sortBy;
 /* 859 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(46),
+var arrayMap = __webpack_require__(47),
     baseIteratee = __webpack_require__(30),
     baseMap = __webpack_require__(389),
     baseSortBy = __webpack_require__(860),
@@ -58141,7 +58181,7 @@ module.exports = compareAscending;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('sum', __webpack_require__(390), __webpack_require__(49));
+    func = convert('sum', __webpack_require__(390), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -58182,7 +58222,7 @@ module.exports = baseSum;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('min', __webpack_require__(866), __webpack_require__(49));
+    func = convert('min', __webpack_require__(866), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -58543,7 +58583,7 @@ var instance = new EventStack();
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
@@ -58961,7 +59001,7 @@ var createHTMLParagraph = createShorthandFactory('p', function (val) {
 /* 880 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var baseGetTag = __webpack_require__(44),
+var baseGetTag = __webpack_require__(45),
     isObjectLike = __webpack_require__(37);
 
 /** `Object#toString` result references. */
@@ -59072,7 +59112,7 @@ function getElementType(Component, props, getDefault) {
 /* unused harmony export htmlInputEvents */
 /* unused harmony export htmlInputProps */
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return partitionHTMLProps; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_includes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_includes__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_lodash_includes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_lodash_includes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_forEach__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_forEach___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_forEach__);
@@ -59140,7 +59180,7 @@ var partitionHTMLProps = function partitionHTMLProps(props) {
 /* 884 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(46);
+var arrayMap = __webpack_require__(47);
 
 /**
  * The base implementation of `_.values` and `_.valuesIn` which creates an
@@ -59221,7 +59261,7 @@ module.exports = func;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('includes', __webpack_require__(50));
+    func = convert('includes', __webpack_require__(51));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -59232,7 +59272,7 @@ module.exports = func;
 /***/ (function(module, exports, __webpack_require__) {
 
 var convert = __webpack_require__(17),
-    func = convert('values', __webpack_require__(105), __webpack_require__(49));
+    func = convert('values', __webpack_require__(105), __webpack_require__(50));
 
 func.placeholder = __webpack_require__(16);
 module.exports = func;
@@ -59283,7 +59323,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ICONS_AND_ALIASES", function() { return ICONS_AND_ALIASES; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "COMPONENT_CONTEXT_SPECIFIC_ICONS", function() { return COMPONENT_CONTEXT_SPECIFIC_ICONS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALL_ICONS_IN_ALL_CONTEXTS", function() { return ALL_ICONS_IN_ALL_CONTEXTS; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(48);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__ = __webpack_require__(49);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_values__ = __webpack_require__(105);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_lodash_values___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_lodash_values__);
@@ -60887,7 +60927,7 @@ Ref.propTypes = process.env.NODE_ENV !== "production" ? {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_pick__ = __webpack_require__(235);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_lodash_pick___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_lodash_pick__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_includes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_includes__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_includes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_lodash_includes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_reduce__ = __webpack_require__(150);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_reduce___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash_reduce__);
@@ -61732,7 +61772,7 @@ Select.Menu = __WEBPACK_IMPORTED_MODULE_3__modules_Dropdown__["a" /* default */]
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22_lodash_union___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22_lodash_union__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_lodash_get__ = __webpack_require__(31);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23_lodash_get___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23_lodash_get__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_lodash_includes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_lodash_includes__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24_lodash_includes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24_lodash_includes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_lodash_isUndefined__ = __webpack_require__(132);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25_lodash_isUndefined___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25_lodash_isUndefined__);
@@ -63204,7 +63244,7 @@ module.exports = baseEvery;
 /* 921 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toString = __webpack_require__(45);
+var toString = __webpack_require__(46);
 
 /**
  * Used to match `RegExp`
@@ -63340,7 +63380,7 @@ module.exports = basePropertyOf;
 /***/ (function(module, exports, __webpack_require__) {
 
 var baseSlice = __webpack_require__(125),
-    toInteger = __webpack_require__(47);
+    toInteger = __webpack_require__(48);
 
 /**
  * Creates a slice of `array` with `n` elements dropped from the end.
@@ -64071,7 +64111,7 @@ TransitionablePortal.propTypes = process.env.NODE_ENV !== "production" ? {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_forEach___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash_forEach__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_without__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_lodash_without___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_lodash_without__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_includes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_includes__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_lodash_includes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_lodash_includes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_prop_types__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_prop_types__);
@@ -64677,7 +64717,7 @@ Breadcrumb.Section = __WEBPACK_IMPORTED_MODULE_8__BreadcrumbSection__["a" /* def
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__FormButton__ = __webpack_require__(432);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__FormCheckbox__ = __webpack_require__(433);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__FormDropdown__ = __webpack_require__(434);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__FormField__ = __webpack_require__(51);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__FormField__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__FormGroup__ = __webpack_require__(435);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__FormInput__ = __webpack_require__(436);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__FormRadio__ = __webpack_require__(437);
@@ -64873,7 +64913,7 @@ Form.propTypes = process.env.NODE_ENV !== "production" ? {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits__ = __webpack_require__(10);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_includes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_includes__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_lodash_includes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_lodash_includes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_map__ = __webpack_require__(21);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_lodash_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_lodash_map__);
@@ -65247,7 +65287,7 @@ module.exports = createCompounder;
 
 var asciiWords = __webpack_require__(945),
     hasUnicodeWord = __webpack_require__(946),
-    toString = __webpack_require__(45),
+    toString = __webpack_require__(46),
     unicodeWords = __webpack_require__(947);
 
 /**
@@ -65434,7 +65474,7 @@ module.exports = upperFirst;
 var castSlice = __webpack_require__(384),
     hasUnicode = __webpack_require__(234),
     stringToArray = __webpack_require__(385),
-    toString = __webpack_require__(45);
+    toString = __webpack_require__(46);
 
 /**
  * Creates a function like `_.lowerFirst`.
@@ -66829,7 +66869,7 @@ Reveal.Content = __WEBPACK_IMPORTED_MODULE_5__RevealContent__["a" /* default */]
 /* 970 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var arrayMap = __webpack_require__(46),
+var arrayMap = __webpack_require__(47),
     baseIteratee = __webpack_require__(30),
     basePickBy = __webpack_require__(386),
     getAllKeysIn = __webpack_require__(382);
@@ -67217,7 +67257,7 @@ Embed.propTypes = process.env.NODE_ENV !== "production" ? {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10_lodash_mapValues___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10_lodash_mapValues__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_lodash_isNumber__ = __webpack_require__(395);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_lodash_isNumber___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11_lodash_isNumber__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_lodash_includes__ = __webpack_require__(50);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_lodash_includes__ = __webpack_require__(51);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12_lodash_includes___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12_lodash_includes__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_lodash_without__ = __webpack_require__(12);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_lodash_without___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13_lodash_without__);
@@ -67975,9 +68015,9 @@ module.exports = round;
 /* 980 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var toInteger = __webpack_require__(47),
+var toInteger = __webpack_require__(48),
     toNumber = __webpack_require__(133),
-    toString = __webpack_require__(45);
+    toString = __webpack_require__(46);
 
 /* Built-in method references for those with the same name as other `lodash` methods. */
 var nativeMin = Math.min;
@@ -70243,7 +70283,7 @@ var _list2 = _interopRequireDefault(_list);
 
 var _reactRedux = __webpack_require__(161);
 
-var _semanticUiReact = __webpack_require__(53);
+var _semanticUiReact = __webpack_require__(44);
 
 var _sources = __webpack_require__(167);
 
@@ -75508,7 +75548,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(53);
+var _semanticUiReact = __webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75530,6 +75570,14 @@ var ModalComponent = function (_Component) {
 
     _this.show = _this.show.bind(_this);
     _this.close = _this.close.bind(_this);
+
+    _this.types = {
+      'book-chapter': 'images/book.png',
+      'monograph': 'images/paper.png',
+      'journal-article': 'images/report.png',
+      'book': 'images/book.png',
+      'reference-entry': 'images/woman_reading.png'
+    };
     return _this;
   }
 
@@ -75575,14 +75623,14 @@ var ModalComponent = function (_Component) {
           _react2.default.createElement(
             _semanticUiReact.Modal.Header,
             null,
-            this.props.item.type
+            this.props.item.type || 'images/airplane.png'
           ),
           _react2.default.createElement(
             _semanticUiReact.Modal.Content,
             { image: true, scrolling: true },
             _react2.default.createElement(_semanticUiReact.Image, {
               wrapped: true, size: 'medium',
-              src: 'images/book.png' }),
+              src: this.types[this.props.item.type] }),
             _react2.default.createElement(
               _semanticUiReact.Modal.Description,
               null,
@@ -75595,12 +75643,18 @@ var ModalComponent = function (_Component) {
                 'p',
                 null,
                 this.props.item.abstract.slice(0, 500) + '...'
-              ) : 'placeholder'
-            ),
-            _react2.default.createElement(
-              'a',
-              { href: this.props.item.URL },
-              'view resource'
+              ) : '',
+              _react2.default.createElement(
+                'p',
+                null,
+                'Publisher: ',
+                this.props.item.publisher
+              ),
+              _react2.default.createElement(
+                'a',
+                { href: this.props.item.URL },
+                'Link to Resource'
+              )
             )
           ),
           _react2.default.createElement(
@@ -75609,9 +75663,8 @@ var ModalComponent = function (_Component) {
             _react2.default.createElement(
               _semanticUiReact.Button,
               { color: 'black', onClick: this.close() },
-              'Nope'
-            ),
-            _react2.default.createElement(_semanticUiReact.Button, { positive: true, icon: 'checkmark', labelPosition: 'right', content: 'Yep, that\'s me', onClick: this.close() })
+              'Exit'
+            )
           )
         )
       );
@@ -75640,7 +75693,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(53);
+var _semanticUiReact = __webpack_require__(44);
 
 var _index = __webpack_require__(92);
 
@@ -75776,7 +75829,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(53);
+var _semanticUiReact = __webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75873,7 +75926,7 @@ var _react = __webpack_require__(1);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _semanticUiReact = __webpack_require__(53);
+var _semanticUiReact = __webpack_require__(44);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -75917,13 +75970,14 @@ var EmailConfirm = function EmailConfirm() {
 exports.default = EmailConfirm;
 
 /***/ }),
-/* 1056 */
+/* 1056 */,
+/* 1057 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(1057);
+var content = __webpack_require__(1058);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -75931,7 +75985,7 @@ var transform;
 var options = {}
 options.transform = transform
 // add the styles to the DOM
-var update = __webpack_require__(1059)(content, options);
+var update = __webpack_require__(1060)(content, options);
 if(content.locals) module.exports = content.locals;
 // Hot Module Replacement
 if(false) {
@@ -75948,10 +76002,10 @@ if(false) {
 }
 
 /***/ }),
-/* 1057 */
+/* 1058 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(1058)(undefined);
+exports = module.exports = __webpack_require__(1059)(undefined);
 // imports
 
 
@@ -75962,7 +76016,7 @@ exports.push([module.i, "#header-container {\n  display: flex;\n  align-items: c
 
 
 /***/ }),
-/* 1058 */
+/* 1059 */
 /***/ (function(module, exports) {
 
 /*
@@ -76044,7 +76098,7 @@ function toComment(sourceMap) {
 
 
 /***/ }),
-/* 1059 */
+/* 1060 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*
@@ -76090,7 +76144,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(1060);
+var	fixUrls = __webpack_require__(1061);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -76403,7 +76457,7 @@ function updateLink (link, options, obj) {
 
 
 /***/ }),
-/* 1060 */
+/* 1061 */
 /***/ (function(module, exports) {
 
 
