@@ -4,12 +4,7 @@ const sendFrom = process.env.userId
 const publicKey = process.env.mailjetPublicKey;
 const privateKey = process.env.mailjetPrivateKey;
 
-console.log('public key --->', publicKey)
-console.log('private key ----->', privateKey)
-
 const mailjet = require('node-mailjet').connect(publicKey, privateKey)
-
-console.log('mailjet instance --->', mailjet)
 
 email.post('/', function(req, res, next){
 
