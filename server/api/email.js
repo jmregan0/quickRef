@@ -4,6 +4,9 @@ const sendFrom = process.env.userId
 const publicKey = process.env.mailjetPublicKey;
 const privateKey = process.env.mailjetPrivateKey;
 
+console.log('public key --->', publicKey)
+console.log('private key ----->', privateKey)
+
 const mailjet = require('node-mailjet').connect(publicKey, privateKey)
 
 email.post('/', function(req, res, next){
@@ -16,9 +19,6 @@ email.post('/', function(req, res, next){
   })
   let emailHTML = ''
   research.forEach(item => { emailHTML += item })
-
-  console.log('sendTo ---->', sendTo)
-  console.log('sendFrom ---->', sendFrom)
 
   const request = mailjet
   .post('send', {version: 'v3.1'})
