@@ -34,7 +34,7 @@ const Footer = (props) => {
 
               <List.Item as='a'
                href='https://www.crossref.org/truths/'>
-               Learn about Crossref
+               Powered by Crossref API
               </List.Item>
 
             </List>

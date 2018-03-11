@@ -1,23 +1,28 @@
 import React from 'react'
+import { withRouter } from 'react-router'
 import { Button, Header, Icon, Modal } from 'semantic-ui-react'
 
-const EmailConfirm = () => {
+const EmailConfirm = (props) => {
   return (
-  <Modal trigger={<Button>Basic Modal</Button>} basic size='small'>
-    <Header icon='archive' content='Archive Old Messages' />
+  <Modal open={true} basic size='small'>
+    <Header icon='checkmark' content='Thank You!' />
     <Modal.Content>
-      <p>Your inbox is getting full, would you like us to enable automatic archiving of old messages?</p>
+      <p>Thanks for taking the time to give feedback.</p>
+      <p>If you left comments about how we can improve, we will try to incorporate your ideas as soon as possible!</p>
     </Modal.Content>
     <Modal.Actions>
-      <Button basic color='red' inverted>
-        <Icon name='remove' /> No
-      </Button>
-      <Button color='green' inverted>
-        <Icon name='checkmark' /> Yes
+      <Button
+        color='green'
+        inverted
+        onClick={ () => {
+          props.history.push('/')
+        }}
+        >
+        <Icon name='checkmark' /> Ok
       </Button>
     </Modal.Actions>
   </Modal>
   )
 }
 
-export default EmailConfirm
+export default withRouter(EmailConfirm)

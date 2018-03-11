@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Container, Header, Button, Menu, Segment, Icon
 } from 'semantic-ui-react'
-import { Link } from 'react-router-dom'
 import Footer from './footer'
 import { TopNav } from './index'
 
@@ -25,7 +24,7 @@ export default class Home extends React.Component {
         <Segment
             inverted
             textAlign='center'
-            style={{ minHeight: 700, padding: '1em 0em' }}
+            style={{ minHeight: 700, padding: '1em 0em', backgroundSize: '100vw', backgroundImage: 'url("images/library.jpg")' }}
             vertical
           >
             <TopNav invert={true} history={this.props.history} />
@@ -55,29 +54,15 @@ export default class Home extends React.Component {
             </Container>
           </Segment>
         <div id="home-container">
-          {/* <Container text style={{ marginTop: '2em' }}>
-            <Header as='h1'>What is QuickSource?</Header>
-          </Container> */}
 
           <Container text>
             <p style={{marginTop: '2em'}}>
-              This is a tool to help in research. Googling resources is great. But sometimes that can be many clicks away
-              from narrowing into the actual published research you need to add to that bibliography. This tool is designed
-              to get right at the data you need.
+              This is a search engine to help you find solid academic sources. It is specially designed to return only published research relevant to your keywords so you don't have to go clicking through pages of bad results to finally get what you need. Googling research is great, but this tool is designed to cut through all the irrelevant data and return only what you need to complete your research.
             </p>
             <p>
-              This web application leverages the CrossRef database which was made by some awesome people you should definitely
-              check out <a href="https://www.youtube.com/watch?v=L0GOa859dZk">here</a>. In a nutshell they have constructed a
-              database that references academic research by Digital Object Identifiers (DOI tags). These tags follow academic
-              writing wherever it travels around the web. The internet is awesome, but one thing that is not so awesome is how
-              links can expire and instead of getting the web page you expected, you sometimes get that notorious 404 - Not Found.
-            </p>
-            <p>
-              The cool thing is that you can search multiple topics at once and find research that matches one or many of your topics.
+              This is a tool that was designed to be minimal and simple. Context switching is something that can kill your productivity while working on a project. This is meant to get you the research you need without any distracting advertisements or irrelevant search results. Get to the research you need in one click.
             </p>
           </Container>
-
-          {/* <Button id="home-search-btn" primary onClick = {() => this.props.history.push('search')}>Get Started</Button> */}
         </div>
         <Footer history={this.props.history} />
       </div>

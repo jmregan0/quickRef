@@ -9,6 +9,13 @@ const mailjet = require('node-mailjet').connect(publicKey, privateKey)
 email.post('/', function(req, res, next){
 
   const sendTo = req.body.sendTo;
+  let research = req.body.research.map(item => {
+    return (
+      `<div><h3>${item.title}</h3><p>Link: ${item.URL}</p></div>`
+    )
+  })
+  let emailHTML = ''
+  research.forEach(item => { emailHTML += item })
 
   const request = mailjet
   .post('send', {version: 'v3.1'})
@@ -17,17 +24,17 @@ email.post('/', function(req, res, next){
         {
           "From": {
             "Email": sendFrom,
-            "Name": 'Mailjet Pilot'
+            "Name": 'QuickSource.org'
           },
           "To": [
                 {
                   "Email": sendTo,
-                  "Name": 'passenger 1'
+                  "Name": 'QuickSource User'
                 }
               ],
-              "Subject": 'Your email flight plan!',
-              "TextPart": 'Dear passenger 1, welcome to Mailjet! May the delivery force be with you!',
-              "HTMLPart": '<p>blah blah</p>'
+              "Subject": 'Research results from QuickSource',
+              "TextPart": "Here's the research you selected!",
+              "HTMLPart": emailHTML
         }
       ]
     })

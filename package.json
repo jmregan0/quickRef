@@ -1,11 +1,13 @@
 {
-  "name": "quickRef",
+  "name": "quickSource",
   "version": "1.0.0",
   "description": "A quick reference tool that leverages the crossref.org API",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "webpack -w & nodemon server"
+    "dev": "webpack -w & nodemon server",
+    "build": "webpack",
+    "start": "node server"
   },
   "author": "jake regan",
   "license": "ISC",

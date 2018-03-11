@@ -12,7 +12,7 @@ const TopNav = (props) => {
     invert === true ?
 
     <Container>
-      <Menu inverted pointing secondary size='large'>
+      <Menu inverted pointing secondary size='large' style={{borderStyle: 'none'}}>
         <Menu.Item as='a'
           active={location === '/'}
           onClick={ () => {props.history.push('/')} }>

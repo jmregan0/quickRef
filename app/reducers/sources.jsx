@@ -3,6 +3,7 @@ import axios from 'axios';
 // Action-Types:
 const RETRIEVE_DATA = 'RETRIEVE_DATA';
 const UPDATE_SELECTED = 'UPDATE_SELECTED';
+const RESET_RESEARCH = 'RESET_RESEARCH';
 
 // Initial State
 const initialState = {
@@ -25,6 +26,10 @@ export const updateSelected = (index, bool) => {
     bool
   }
 }
+
+export const resetResearch = () => ({
+  type: RESET_RESEARCH
+})
 
 // dispatch methods/THUNKS:
 export const fetchResearch = (searchParams) =>
@@ -56,6 +61,9 @@ export default function(state = initialState, action) {
       break
     case UPDATE_SELECTED:
       newState.sources[action.index].isSelected = action.bool
+      break
+    case RESET_RESEARCH:
+      newState.sources = []
       break
     default:
       return state
