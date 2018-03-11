@@ -9,12 +9,6 @@ const mailjet = require('node-mailjet').connect(publicKey, privateKey)
 email.post('/', function(req, res, next){
 
   const sendTo = req.body.sendTo;
-  let research = req.body.research;
-  let emailBody = '';
-
-  research.forEach(item => {
-    emailBody += item.title + '<br />'
-  })
 
   const request = mailjet
   .post('send', {version: 'v3.1'})
@@ -33,19 +27,24 @@ email.post('/', function(req, res, next){
               ],
               Subject: 'Your email flight plan!',
               TextPart: 'Dear passenger 1, welcome to Mailjet! May the delivery force be with you!',
-              HTMLPart: '<p>' + emailBody + '</p>'
+              HTMLPart: '<p>blah blah</p>'
         }
       ]
     })
+    .catch(err => console.log('error', err))
 
-  request
-    .then((result) => {
-        console.log(result.body)
-        res.sendStatus(200)
-    })
-    .catch((err) => {
-        console.log(err.statusCode)
-    })
+    console.log('mailjet instance -->', mailjet)
+    console.log('mailjet request obj', request)
+
+    res.sendStatus(200)
+  // request
+  //   .then((result) => {
+  //       console.log(result.body)
+  //       res.sendStatus(200)
+  //   })
+  //   .catch((err) => {
+  //       console.log(err.statusCode)
+  //   })
 
 })
 
