@@ -18,6 +18,7 @@ export default class Home extends React.Component {
   }
 
   render () {
+    console.log('process.env variables ---> ', process.env.userId)
 
     return (
       <div>
