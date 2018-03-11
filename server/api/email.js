@@ -17,6 +17,9 @@ email.post('/', function(req, res, next){
   let emailHTML = ''
   research.forEach(item => { emailHTML += item })
 
+  console.log('sendTo ---->', sendTo)
+  console.log('sendFrom ---->', sendFrom)
+
   const request = mailjet
   .post('send', {version: 'v3.1'})
   .request({
