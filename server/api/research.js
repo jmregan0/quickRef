@@ -1,6 +1,6 @@
 const research = require('express').Router();
 const axios = require('axios');
-const userId = require('../../keys').userId
+const userId = process.env.userId
 
 
 research.post('/', function(req, res, next){

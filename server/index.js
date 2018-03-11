@@ -4,7 +4,8 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const path = require('path');
 const PORT = process.env.PORT || 3000
-
+const env = process.env.NODE_ENV || 'dev'
+if (env === 'dev') require('../keys.js')
 
 // function to wrap middleware:
 const createApp = () => {

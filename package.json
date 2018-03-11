@@ -9,6 +9,9 @@
   },
   "author": "jake regan",
   "license": "ISC",
+  "engines": {
+    "node": "8.0.0"
+  },
   "dependencies": {
     "axios": "^0.17.1",
     "body-parser": "^1.17.2",
