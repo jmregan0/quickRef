@@ -9,6 +9,8 @@ console.log('private key ----->', privateKey)
 
 const mailjet = require('node-mailjet').connect(publicKey, privateKey)
 
+console.log('mailjet instance --->', mailjet)
+
 email.post('/', function(req, res, next){
 
   const sendTo = req.body.sendTo;
